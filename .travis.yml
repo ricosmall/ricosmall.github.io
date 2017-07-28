@@ -1,5 +1,5 @@
 language: node_js
-node_js: stable
+node_js: 7.0.0
 
 # Travis-CI Caching
 cache:
@@ -9,7 +9,8 @@ cache:
 
 # S: Build Lifecycle
 install:
-  - npm install
+  - npm install -g hexo-cli
+  - npm install hexo-generator-feed@1
 
 before_script:
  # - npm install -g gulp
