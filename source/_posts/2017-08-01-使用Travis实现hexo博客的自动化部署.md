@@ -8,4 +8,8 @@ categories:
 - 教程
 ---
 
-占坑，待写。
+一直想写一篇文章，记录一下从搭建博客到实现用[Travis-CI](https://www.travis-ci.org)自动化部署博客的过程。憋到现在才写，拖了很久。
+
+<!-- more -->
+
+## 第一次小跨越：实现博客同时部署到[Coding](https://coding.net)和[Github](https://github.com)
