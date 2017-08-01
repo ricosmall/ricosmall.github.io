@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 themes/next
+cd themes/next
+git pull
+cd ../../
 hexo clean
 hexo deploy --generate
 
