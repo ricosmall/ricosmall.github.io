@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 # 更新next主题
+# 检测next主题是否存在，不存在则pull下来
+if [ ! -d 'themes/next' ]; then
+    git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 themes/next
+fi
+
 echo '准备更新next主题'
 cd themes/next
 git pull
