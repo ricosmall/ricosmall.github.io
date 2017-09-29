@@ -10,6 +10,7 @@ cache:
 # S: Build Lifecycle
 install:
   - npm install -g hexo-cli
+  - npm install
   - npm install hexo-generator-feed@1
 
 before_script:
@@ -18,7 +19,7 @@ before_script:
 
 
 script:
-  - hexo g
+  - hexo generate
 
 
 after_script:
