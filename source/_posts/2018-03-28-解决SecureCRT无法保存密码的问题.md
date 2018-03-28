@@ -13,6 +13,8 @@ categories:
 
 ![login-settings](http://o9o8lcfa3.bkt.clouddn.com/securecrt-connect.png)
 
+<!-- more -->
+
 ## 方法
 
 打开 secureCRT => Preferences，左侧选择 General，去掉右侧面板中 Use Keychain 选项，如下图：
