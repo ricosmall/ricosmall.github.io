@@ -18,7 +18,7 @@ install:
 
 before_script:
  # - npm install -g gulp
-  - git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 ./themes/next
+  # - git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 ./themes/next
 
 
 script:
