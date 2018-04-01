@@ -10,7 +10,6 @@ cache:
 # S: Build Lifecycle
 install:
   - npm install -g hexo-cli
-  - npm install -g yarn
   # - npm install
   - yarn
   # - npm install hexo-generator-feed@1
@@ -18,7 +17,7 @@ install:
 
 before_script:
  # - npm install -g gulp
-  # - git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 ./themes/next
+  - git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 ./themes/next
 
 
 script:
