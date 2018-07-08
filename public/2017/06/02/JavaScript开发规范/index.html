@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Menlo, Monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,开发规范," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="进击的前端" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 命名规范驼峰式命名法：驼峰式命名法由大（小）写字母开始，后续每个单词首字母都大写。按照第一个字母是否大写，分为：  Pascal Case 大驼峰式命名法：首字母大写。如：StudentInfo Camel Case 小驼峰式命名法：首字母小写。如：studentInfo">
+<meta name="keywords" content="JavaScript,开发规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript开发规范">
+<meta property="og:url" content="http://yoursite.com/2017/06/02/JavaScript开发规范/index.html">
+<meta property="og:site_name" content="进击的前端">
+<meta property="og:description" content="1. 命名规范驼峰式命名法：驼峰式命名法由大（小）写字母开始，后续每个单词首字母都大写。按照第一个字母是否大写，分为：  Pascal Case 大驼峰式命名法：首字母大写。如：StudentInfo Camel Case 小驼峰式命名法：首字母小写。如：studentInfo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-27T13:52:33.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript开发规范">
+<meta name="twitter:description" content="1. 命名规范驼峰式命名法：驼峰式命名法由大（小）写字母开始，后续每个单词首字母都大写。按照第一个字母是否大写，分为：  Pascal Case 大驼峰式命名法：首字母大写。如：StudentInfo Camel Case 小驼峰式命名法：首字母小写。如：studentInfo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/02/JavaScript开发规范/"/>
+
+
+
+
+
+  <title>JavaScript开发规范 | 进击的前端</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">进击的前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">还没想到合适的</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/02/JavaScript开发规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rico">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="进击的前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JavaScript开发规范</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-02T22:41:28+08:00">
+                2017-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/规范/" itemprop="url" rel="index">
+                    <span itemprop="name">规范</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/02/JavaScript开发规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/02/JavaScript开发规范/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-命名规范"><a href="#1-命名规范" class="headerlink" title="1. 命名规范"></a>1. 命名规范</h2><h3 id="驼峰式命名法："><a href="#驼峰式命名法：" class="headerlink" title="驼峰式命名法："></a>驼峰式命名法：</h3><p>驼峰式命名法由大（小）写字母开始，后续每个单词首字母都大写。<br>按照第一个字母是否大写，分为：</p>
+<ul>
+<li>Pascal Case 大驼峰式命名法：首字母大写。如：StudentInfo</li>
+<li>Camel Case 小驼峰式命名法：首字母小写。如：studentInfo</li>
+</ul>
+<a id="more"></a>
+<h3 id="1-1-变量"><a href="#1-1-变量" class="headerlink" title="1.1 变量"></a>1.1 变量</h3><p>命名方法： 小驼峰式命名法<br>命名规范： 前缀应当是名词。（函数的名字前缀为动词，以此区分变量和函数）<br>命名建议：尽量在变量名字中体现所属类型，如：length、count等表示数字类型；而包含name、title表示为字符串类型。</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// good</span></div><div class="line"><span class="keyword">var</span> maxCount = <span class="number">10</span>;</div><div class="line"><span class="keyword">var</span> tableTitle = <span class="string">'LoginTable'</span>;</div><div class="line"></div><div class="line"><span class="comment">// bad</span></div><div class="line"><span class="keyword">var</span> setCount = <span class="number">10</span>;</div><div class="line"><span class="keyword">var</span> getTitle = <span class="string">'LoginTable'</span>;</div></pre></td></tr></table></figure>
+<h3 id="1-2-函数"><a href="#1-2-函数" class="headerlink" title="1.2 函数"></a>1.2 函数</h3><p>命名方法：小驼峰式命名法<br>命名规范：前缀应当为动词<br>命名建议：可以使用常见动词约定</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">动词</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">can</td>
+<td style="text-align:left">判断是否可执行某个动作（权限）</td>
+<td style="text-align:left">Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">has</td>
+<td style="text-align:left">判断是否含有某个值</td>
+<td style="text-align:left">Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">is</td>
+<td style="text-align:left">判断是否为某个值</td>
+<td style="text-align:left">Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">get</td>
+<td style="text-align:left">获取某个值</td>
+<td style="text-align:left">NOT Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">set</td>
+<td style="text-align:left">设置某个值</td>
+<td style="text-align:left">无返回值、Boolean或者返回链式对象</td>
+</tr>
+<tr>
+<td style="text-align:left">load</td>
+<td style="text-align:left">加载某些数据</td>
+<td style="text-align:left">无返回值或加载状态</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 判断是否可读</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">canRead</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 获取名字</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-3-常量"><a href="#1-3-常量" class="headerlink" title="1.3 常量"></a>1.3 常量</h3><p>命名方法：名称全部大写<br>命名规范：使用大写字母和下划线组合命名，下划线用以分割单词<br>命名建议：参照1.1</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MAX_COUNT = <span class="number">10</span>;</div><div class="line"><span class="keyword">var</span> URL = <span class="string">'http://www.lrts.me'</span>;</div></pre></td></tr></table></figure>
+<h3 id="1-4-构造函数"><a href="#1-4-构造函数" class="headerlink" title="1.4 构造函数"></a>1.4 构造函数</h3><p>命名方法：大驼峰式命名法<br>命名规范：前缀为名称<br>命名建议：无</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> student1 = <span class="keyword">new</span> Student(<span class="string">'Tom'</span>);</div></pre></td></tr></table></figure>
+<h3 id="1-5-类的成员"><a href="#1-5-类的成员" class="headerlink" title="1.5 类的成员"></a>1.5 类的成员</h3><p>命名建议：</p>
+<ul>
+<li>公共属性和方法：跟变量和函数的命名一样</li>
+<li>私有属性和方法：前缀为_（下划线），后面跟公共属性和方法一样的命名方式</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 私有属性</span></div><div class="line">    <span class="keyword">var</span> _name = name;</div><div class="line"></div><div class="line">    <span class="comment">// 公共方法</span></div><div class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> _name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">        _name = value;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> student1 = <span class="keyword">new</span> Student(<span class="string">'Tom'</span>);</div><div class="line">student1.setName(<span class="string">'John'</span>);</div><div class="line"><span class="built_in">console</span>.log(student1.getName()); <span class="comment">// =&gt; John</span></div></pre></td></tr></table></figure>
+<h2 id="2-注释规范"><a href="#2-注释规范" class="headerlink" title="2. 注释规范"></a>2. 注释规范</h2><p>JavaScript支持两种不同类型的注释：单行注释和多行注释。</p>
+<h3 id="2-1-单行注释"><a href="#2-1-单行注释" class="headerlink" title="2.1 单行注释"></a>2.1 单行注释</h3><p>说明：单行注释以两个斜杠开始，以行尾结束<br>语法：<code>//</code> 这是单行注释<br>使用方式：</p>
+<ul>
+<li>单独一行：<code>// comments</code> 双斜杠与文字之间保留一个空格</li>
+<li>在代码后面添加注释：<code>var MAX_COUNT = 10; // comments</code> 双斜杠与代码结尾之间保留一个空格，与注释文字之间保留一个空格。</li>
+<li>注释代码：<code>// var MAX_COUNT = 10;</code> 双斜杠与代码之间保留一个空格。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 单独一行</span></div><div class="line">setCount();</div><div class="line"></div><div class="line"><span class="keyword">var</span> MAX_COUNT = <span class="number">10</span>; <span class="comment">// 在代码后面添加注释</span></div><div class="line"></div><div class="line"><span class="comment">// 注释代码</span></div><div class="line"><span class="comment">// setName();</span></div></pre></td></tr></table></figure>
+<h3 id="2-2-多行注释"><a href="#2-2-多行注释" class="headerlink" title="2.2 多行注释"></a>2.2 多行注释</h3><p>说明：以<code>/*</code>开头，以<code>*/</code>结尾<br>语法：<code>/* comments */</code><br>使用方法：</p>
+<ul>
+<li>若<code>/*</code>和<code>*/</code>在同一行，推荐采用单行注释</li>
+<li>若至少三行注释，第一行为<code>/*</code>，最后一行为<code>*/</code>，其他行以<code>*</code>开始，与注释文字之间保留一个空格，并且所有的<code>*</code>保持竖向对齐</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * comments line one</span></div><div class="line"><span class="comment"> * comments line two</span></div><div class="line"><span class="comment"> */</span></div><div class="line">setName();</div></pre></td></tr></table></figure>
+<h3 id="2-3-函数（方法）注释"><a href="#2-3-函数（方法）注释" class="headerlink" title="2.3 函数（方法）注释"></a>2.3 函数（方法）注释</h3><p>说明：函数（方法）注释也是多行注释的一种，但是包含了特殊的注释要求。<br>语法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 函数说明</span></div><div class="line"><span class="comment"> * @关键字</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure></p>
+<p>常用注释关键字：（只列出一部分）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">注释名</th>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">@param</td>
+<td style="text-align:left">@param 参数名 {参数类型} 描述信息</td>
+<td style="text-align:left">描述参数的信息</td>
+<td style="text-align:left">@param name {String} 名称</td>
+</tr>
+<tr>
+<td style="text-align:left">@return</td>
+<td style="text-align:left">@return {返回类型} 描述信息</td>
+<td style="text-align:left">描述返回值的信息</td>
+<td style="text-align:left">@return {String} 名称</td>
+</tr>
+<tr>
+<td style="text-align:left">@author</td>
+<td style="text-align:left">@author 作者名字 附属信息</td>
+<td style="text-align:left">描述此函数或者模块的作者信息</td>
+<td style="text-align:left">@author Tom 2016-10-10</td>
+</tr>
+<tr>
+<td style="text-align:left">@version</td>
+<td style="text-align:left">@version xx.xx.xx</td>
+<td style="text-align:left">描述此函数或者模块的版本号</td>
+<td style="text-align:left">@version 1.0.1</td>
+</tr>
+<tr>
+<td style="text-align:left">@example</td>
+<td style="text-align:left">@example 示例代码</td>
+<td style="text-align:left">示例函数使用方法</td>
+<td style="text-align:left">@example setName(‘John’)</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 合并Grid的行</span></div><div class="line"><span class="comment"> * @param grid &#123;Ext.Grid.Panel&#125; 需要合并的Grid</span></div><div class="line"><span class="comment"> * @param cols &#123;Array&#125; 需要合并的Index（序号）数组；从0开始计数，序号也包含</span></div><div class="line"><span class="comment"> * @param isAllSome &#123;Boolean&#125; 是否2个tr的cols必须完全一样才能进行合并。true: 完全一样；false(默认): 不完全一样</span></div><div class="line"><span class="comment"> * @return void</span></div><div class="line"><span class="comment"> * @author polk6 2015/07/21</span></div><div class="line"><span class="comment"> * @example</span></div><div class="line"><span class="comment"> * ______________                                  ______________</span></div><div class="line"><span class="comment"> * | 年龄 | 姓名 |                                   | 年龄 | 姓名 |</span></div><div class="line"><span class="comment"> * --------------       mergeCells(grid, [0])      --------------</span></div><div class="line"><span class="comment"> * | 18  | 张三 |               =&gt;                  |     | 张三 |</span></div><div class="line"><span class="comment"> * --------------                                  |  18 |-------</span></div><div class="line"><span class="comment"> * | 18  | 王五 |                                   |     | 王五 |</span></div><div class="line"><span class="comment"> * --------------                                  --------------</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeCells</span>(<span class="params">grid, cols, isAllSome</span>) </span>&#123;</div><div class="line">    <span class="comment">// do something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-框架开发"><a href="#3-框架开发" class="headerlink" title="3. 框架开发"></a>3. 框架开发</h2><p>在团队开发或者引入第三方JS的时候，有时候会造成全局对象的命名冲突，比如a.js有个全局函数sendMsg()，b.js也有个全局函数sendMsg()，引入a.js和b.js文件时，会造成sendMsg()函数冲突。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">全局变量冲突：b.js会覆盖a.js的同名函数                                // a.js</div><div class="line">                                                                 ------------------------</div><div class="line">                                                          +----&gt; | function sendMsg() &#123; |</div><div class="line">&lt;script src=&quot;/js/b.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      |     alert(&apos;a&apos;);      |</div><div class="line">&lt;script src=&quot;/js/a.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      | &#125;                    |</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;                           |      ------------------------</div><div class="line">                                                          |      // b.js</div><div class="line">    sendMsg(); // =&gt; ‘b’                                  |      -------------------------</div><div class="line">                                                          |      | function sendMsg() &#123;  |</div><div class="line">&lt;/script&gt;                                                 +----&gt; |     alert(&apos;b&apos;);       |</div><div class="line">                                                                 | &#125;                     |</div><div class="line">                                                                 -------------------------</div></pre></td></tr></table></figure>
+<h3 id="3-2-单全局变量"><a href="#3-2-单全局变量" class="headerlink" title="3.2 单全局变量"></a>3.2 单全局变量</h3><p>所创建的全局对象名称是独一无二的，并将所有的功能代码添加到这个全局对象上。调用自己所写的代码时，以这个全局对象为入口。</p>
+<p>如：</p>
+<ul>
+<li>jQuery的全局对象：$和jQuery</li>
+<li>ExtJS的全局对象：Ext</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">全局变量冲突：b.js和a.js都有各自的主对象。                             // a.js</div><div class="line">                                                                 -----------------------------</div><div class="line">                                                                 | var A = A || &#123;&#125;;          |</div><div class="line">                                                          +----&gt; | A.sendMsg = function () &#123; |</div><div class="line">&lt;script src=&quot;/js/b.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      |     alert(&apos;a&apos;);           |</div><div class="line">&lt;script src=&quot;/js/a.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      | &#125;                         |</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;                           |      -----------------------------</div><div class="line">                                                          |      // b.js</div><div class="line">    A.sendMsg(); // =&gt; ‘a’                                |      ------------------------------</div><div class="line">                                                          |      | var B = B || &#123;&#125;;           |</div><div class="line">                                                          |      | B.sendMsg = function () &#123;  |</div><div class="line">    B.sendMsg(); // =&gt; &apos;b&apos;                                +----&gt; |     alert(&apos;b&apos;);            |</div><div class="line">                                                                 | &#125;                          |</div><div class="line">                                                                 ------------------------------</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-3-命名空间"><a href="#3-3-命名空间" class="headerlink" title="3.3 命名空间"></a>3.3 命名空间</h3><p>在项目规模日益壮大时，可采用命名空间的方式对JS代码进行规范：即将代码按照功能进行分组，以组的形式附加到单全局对象上。</p>
+<p>以Ext的chart模块为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">                                                       ------------</div><div class="line">                                                 +---&gt; |   Axis   |</div><div class="line">                                                 |     ------------</div><div class="line">                                                 |     ------------</div><div class="line">                                                 +---&gt; | Category |</div><div class="line">                                    子模块名称     |     ------------</div><div class="line">                                    ----------   |     ------------</div><div class="line">                              +---&gt; |  axis  | --+---&gt; |    ...   |</div><div class="line">                  模块名称     |      ----------         ------------</div><div class="line">                  ---------   |     ----------         ------------</div><div class="line">            +---&gt; | chart | --+---&gt; | series | --+---&gt; |   Area   |</div><div class="line">单全局对象    |     ---------   |     ----------   |     ------------</div><div class="line">---------   |                 |     ----------   |     ------------</div><div class="line">|  Ext  | --+                 +---&gt; |  ...   |   +---&gt; |   Bar    |</div><div class="line">---------   |                       ----------   |     ------------</div><div class="line">            |     ---------                      |     ------------</div><div class="line">            +---&gt; |  ...  |                      +---&gt; |   ...    |</div><div class="line">                  ---------                            ------------</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/开发规范/" rel="tag"># 开发规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/27/JavaScript创建对象的方式汇总/" rel="next" title="JavaScript创建对象的方式汇总">
+                <i class="fa fa-chevron-left"></i> JavaScript创建对象的方式汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/13/JavaScript设计模式（一）/" rel="prev" title="JavaScript设计模式（一）">
+                JavaScript设计模式（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Rico" />
+          <p class="site-author-name" itemprop="name">Rico</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ricosmall" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-命名规范"><span class="nav-number">1.</span> <span class="nav-text">1. 命名规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#驼峰式命名法："><span class="nav-number">1.1.</span> <span class="nav-text">驼峰式命名法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-变量"><span class="nav-number">1.2.</span> <span class="nav-text">1.1 变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-函数"><span class="nav-number">1.3.</span> <span class="nav-text">1.2 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-常量"><span class="nav-number">1.4.</span> <span class="nav-text">1.3 常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-构造函数"><span class="nav-number">1.5.</span> <span class="nav-text">1.4 构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-类的成员"><span class="nav-number">1.6.</span> <span class="nav-text">1.5 类的成员</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-注释规范"><span class="nav-number">2.</span> <span class="nav-text">2. 注释规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-单行注释"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 单行注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-多行注释"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 多行注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-函数（方法）注释"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 函数（方法）注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-框架开发"><span class="nav-number">3.</span> <span class="nav-text">3. 框架开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-单全局变量"><span class="nav-number">3.1.</span> <span class="nav-text">3.2 单全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-命名空间"><span class="nav-number">3.2.</span> <span class="nav-text">3.3 命名空间</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rico</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ricosmall.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/06/02/JavaScript开发规范/';
+          this.page.identifier = '2017/06/02/JavaScript开发规范/';
+          this.page.title = 'JavaScript开发规范';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ricosmall.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

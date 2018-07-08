@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Menlo, Monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="浏览器,渲染引擎原理,Gecko,Firefox," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="进击的前端" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="原文地址  2016年10月的时候我们宣布了Quantum项目–我们计划开发下一代浏览器引擎。现在该项目正在顺利进行。事实上我们已经将Quantum项目的阶段性成果应用到了Firefox 53中。 但是，我们意识到对于不开发浏览器的人（其实是大多数人）来说，要理解我们做的一些改变为什么对Firefox如此重要是很困难的。毕竟我们做的大多数改变对用户来说是不可见的。">
+<meta name="keywords" content="浏览器,渲染引擎原理,Gecko,Firefox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quantum聚焦：什么是浏览器引擎？">
+<meta property="og:url" content="http://yoursite.com/2017/05/17/Quantum聚焦：什么是浏览器引擎/index.html">
+<meta property="og:site_name" content="进击的前端">
+<meta property="og:description" content="原文地址  2016年10月的时候我们宣布了Quantum项目–我们计划开发下一代浏览器引擎。现在该项目正在顺利进行。事实上我们已经将Quantum项目的阶段性成果应用到了Firefox 53中。 但是，我们意识到对于不开发浏览器的人（其实是大多数人）来说，要理解我们做的一些改变为什么对Firefox如此重要是很困难的。毕竟我们做的大多数改变对用户来说是不可见的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hacks.mozilla.org/files/2017/05/black-box.png">
+<meta property="og:image" content="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/html-diagra.png">
+<meta property="og:image" content="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/style-engine-1.png">
+<meta property="og:image" content="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/layout-time.png">
+<meta property="og:image" content="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/browser-diagram-full-2.png">
+<meta property="og:updated_time" content="2018-03-27T13:52:33.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quantum聚焦：什么是浏览器引擎？">
+<meta name="twitter:description" content="原文地址  2016年10月的时候我们宣布了Quantum项目–我们计划开发下一代浏览器引擎。现在该项目正在顺利进行。事实上我们已经将Quantum项目的阶段性成果应用到了Firefox 53中。 但是，我们意识到对于不开发浏览器的人（其实是大多数人）来说，要理解我们做的一些改变为什么对Firefox如此重要是很困难的。毕竟我们做的大多数改变对用户来说是不可见的。">
+<meta name="twitter:image" content="https://hacks.mozilla.org/files/2017/05/black-box.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/17/Quantum聚焦：什么是浏览器引擎/"/>
+
+
+
+
+
+  <title>Quantum聚焦：什么是浏览器引擎？ | 进击的前端</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">进击的前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">还没想到合适的</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/17/Quantum聚焦：什么是浏览器引擎/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rico">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="进击的前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Quantum聚焦：什么是浏览器引擎？</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T19:58:52+08:00">
+                2017-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/17/Quantum聚焦：什么是浏览器引擎/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/17/Quantum聚焦：什么是浏览器引擎/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://hacks.mozilla.org/2017/05/quantum-up-close-what-is-a-browser-engine/" target="_blank" rel="external">原文地址</a></p>
+</blockquote>
+<p>2016年10月的时候我们宣布了Quantum项目–我们计划开发下一代浏览器引擎。现在该项目正在顺利进行。事实上我们已经将Quantum项目的阶段性成果应用到了Firefox 53中。</p>
+<p>但是，我们意识到对于不开发浏览器的人（其实是大多数人）来说，要理解我们做的一些改变为什么对Firefox如此重要是很困难的。毕竟我们做的大多数改变对用户来说是不可见的。</p>
+<a id="more"></a>
+<p>考虑到这一点，我们开始撰写一系列的博客文章，使大家对我们在Quantum项目中所做的事情有一个更深层的理解。我们希望这一系列的文章能够让你们更好地理解Firefox是如何工作的，同时了解Firefox采用的方式是构建下一代浏览器引擎以更好地利用现代计算机硬件。</p>
+<p>作为这一系列文章的开始，我们认为解释Quantum正在改变的基础原理是最合适的。</p>
+<p>什么是浏览器引擎，它是怎么工作？</p>
+<p>那么要从哪里开始呢？我们认为应该从头开始。</p>
+<p>浏览器就是一个软件，它的功能是加载文件（通常从远程服务器）并且在本地显示出来，允许用户和页面交互。</p>
+<p>Quantum是我们Mozilla正在进行的一个项目，旨在大规模升级Firefox的一部分，这部分的功能就是基于远程文件计算出要呈现给用户的东西。这部分的专业术语叫“浏览器引擎”。如果没有这部分，你所看到的将会是一行行代码，而不是现在所看到的页面。Firefox的浏览器引擎名字叫Gecko。</p>
+<p>简单来说，可以把浏览器引擎比喻成一个黑盒子，就像电视盒子，这个黑盒子从网络接收数据然后把数据计算成要显示在屏幕上的图像。今天的问题是：怎么做到的？把数据计算成我们看到的网页经历了哪些步骤？</p>
+<p><img src="https://hacks.mozilla.org/files/2017/05/black-box.png" alt="黑盒子"></p>
+<p>组成一个网页的数据包含很多东西，但是基本上可以分解成3个部分：</p>
+<ul>
+<li>表示网页结构的代码</li>
+<li>提供样式的代码：网页结构的视觉外观</li>
+<li>浏览器行为的脚本代码：对用户的行为进行计算并作出反馈，对网页的结构和样式作出改变</li>
+</ul>
+<p>浏览器引擎把结构和样式结合在一起，用来绘制显示在屏幕上的网页，并且计算出哪些部分是可以进行交互的。</p>
+<p>这一切都始于结构。当你要求浏览器加载一个网站，你会给它一个地址。这个地址对应的是另一台电脑，这台电脑收到请求就会发送数据给你的浏览器。发送数据给浏览器的细节在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="external">另一篇文章</a>做了详述。总之最后浏览器拿到了数据。数据以HTML的格式返回，用于描述网页的结构。浏览器又是怎么理解HTML的呢？</p>
+<p>浏览器引擎包含了一系列特殊的代码，叫做解析器，它可以把浏览器存在内存中的数据从一种格式转换成另一种格式。HTML解析器专门负责解析HTML数据，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"main-title"</span>&gt;</span>Hello!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://example.com/image.png"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>解析过程描述如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">好的，这是个section。包含在section里面的有一个个h1的标题，</div><div class="line">标题的内容为&apos;Hello!&apos;；还有一张图片也包含在section里面，图片</div><div class="line">的数据源为&apos;http://example.com/image.png&apos;。</div></pre></td></tr></table></figure>
+<p>内存中的网页结构叫做<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction" target="_blank" rel="external">文档对象模型</a>或者DOM。和一长串的文字形式相反，DOM表示为最终网页的元素组成的一棵树：元素包含哪些属性，哪些元素包含在其他元素中。</p>
+<p><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/html-diagra.png" alt="DOM"></p>
+<p>除了描述页面的结构，HTML里面也包含了样式和脚本的资源地址。当浏览器找到这些地址，就会去请求对应的地址并加载对应的数据。然后这些数据被传给专门处理这些数据格式的解析器。如果脚本被找到了，在HTML解析完成之前，这些脚本可以改变页面的结构和样式。作为样式格式，CSS在浏览器引擎中扮演下一个角色。</p>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p>CSS是一种编程语言，开发者可以用这种编程语言去定义页面中特定元素的外观。CSS的全称是”Cascading Style Sheets”（层叠样式表），之所以这样命名，是因为它允许很多样式指令集合，在这些样式指令集中，新的指令可以覆盖旧的或者默认的指令（叫做层叠）。下面是一小段CSS示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">section</span> &#123;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">15px</span>;</div><div class="line">  <span class="attribute">color</span>: <span class="number">#333</span>;</div><div class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">h1</span> &#123;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">2em</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.main-title</span> &#123;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">3em</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">img</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>CSS被大量分解成被称为规则的组合，这些组合都是由两部分组成。第一部分是选择器。选择器表示DOM中需要更改样式的元素（还记得上面的描述吗？）。另一部分是一个列表，包含着将要应用到选择器对应元素的样式声明列表。浏览器引擎包含了一个子引擎，名字叫样式引擎，它的工作就是将CSS代码指定的样式应用到HTML解析器解析出来的DOM中去。</p>
+<p><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/style-engine-1.png" alt="样式引擎"></p>
+<p>举例来说，在上面那段CSS代码中，我们声明的一些样式规则，目标选择器是“section”，这个选择器会和DOM中的同名元素匹配。之后样式说明会逐一应用到DOM中的每一个元素。最终DOM中的每一个元素都会被加上样式，我们把这种状态叫做元素的计算样式。当多种样式规则都被应用到同一个元素上的时候，那些排在后面的会覆盖掉排在前面的，定义的样式声明多的会覆盖样式声明少的。可以把样式表想象成临摹用的半透明的薄纸，每一层可以覆盖前面一层，但是同时又能够透过去看到上面一层。</p>
+<p>一旦浏览器引擎拿到了计算样式，就会马上用起来。DOM和计算样式都会传给一个布局引擎，这个布局引擎可以计算将要展示页面的窗口的尺寸。布局引擎采用了一系列算法，画一个盒子，然后拿一个元素，把元素的内容以及应用在该元素上的样式依照规则放进盒子里。</p>
+<p><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/layout-time.png" alt="布局引擎"></p>
+<p>布局完成之后要做的就是把页面转换成最终你看到的样子。这个过程被称为渲染，它是所有前面进行的步骤的最终结合。每个被布局定义好的盒子都被绘制好，包括来自DOM的所有内容和来自CSS的所有样式。现在，用户看到了通过对代码重新组装的页面。</p>
+<p>以上就是发生的一切。</p>
+<p>当用户滚动页面的时候，我们会重绘，然后呈现页面中未被显示在窗口中的新的部分。然而，事实证明用户喜欢滚动！浏览器引擎确信它将会被要求显示初始窗口（我们称为视口）以外的内容。很多现代浏览器深知这一点，因此一开始就会绘制更多的可见内容。当用户滚动的时候，他们想看到的部分其实早已经绘制好并且等着了。结果使滚动变得快速而又平滑。这个技术是合成的基础，一种用于减少页面绘制请求次数的技术手段。</p>
+<p>另外，有时候我们需要重绘当前屏幕上的一部分。也许用户正在观看一个60帧每秒的视频。也许页面上有一张幻灯片或者动画列表。浏览器能够检测到到页面的一部分会发生移动或者更新，并且会创建一个控制该部分内容的层，而不是重绘整个页面。一个页面可以有很多层，一层覆盖另一层。其中的某一层可以改变位置，滑动，透明，后置或者前置于另一个不需要重绘任何东西的层。非常方便不是吗？</p>
+<p>有时候一个脚本或者一个动画会改变元素的样式。当这个发生的时候，样式引擎需要重新计算这个元素的样式（有可能是页面中更多的元素），重新布局（做一个重排），然后重绘这个页面。这些计算将会花费很多时间，但是只要这种事情只是偶尔发生，那么对用户体验来说不会产生消极的影响。</p>
+<p>在现代网页应用中，DOM结构被脚本频繁地改变。这将使整个渲染过程或多或少出现终止并重新开始，同事伴随着HTML被解析到DOM，样式计算，重排和重绘。</p>
+<p><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/browser-diagram-full-2.png" alt="渲染过程"></p>
+<h2 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h2><p>不是每一个浏览器都用同样的方式去解析HTML，CSS和JavaScript。不同的浏览器渲染出来的页面可能不同：小到局部样式不同，大到整个网站可能只能在一个浏览器运行而其他浏览器都不行。目前，在现代网络中，大多数网站都能正常运行在你使用的浏览器中，不管你使用的是哪个浏览器。这些浏览器是怎么实现这么高的一致性的呢？</p>
+<p>网站代码的格式，和控制代码如何被解析成可见的交互页面的规则，都是被大家都同意的文件定义的，这个文件就叫做标准（规范）。这些标准都是由一个委员会制定，这个委员会由浏览器厂商的代表、web开发者、设计师和这个行业的其他人员组成的。他们一起决定一个浏览器引擎的精确行为：给一段特定的代码，完成对应的展示。这里有<a href="https://developer.mozilla.org/en-US/docs/Web_Standards" target="_blank" rel="external">HTML，CSS和JavaScript的规范</a>以及图片、视频、音频的数据格式等等。</p>
+<p>为什么这个很重要？开发一个全新的浏览器引擎是可行的，只要你确保你的引擎遵循了标准，这个引擎会以和其他所有浏览器一样的方式去为网络上数以十亿计的网页做绘制渲染工作。这意味着让网站正常工作的秘诀不属于任何一个浏览器专属。标准允许用户去选择能满足他们需求的浏览器。</p>
+<h2 id="摩尔定律不再"><a href="#摩尔定律不再" class="headerlink" title="摩尔定律不再"></a>摩尔定律不再</h2><p>当恐龙漫步在地球上而且人们只有桌面电脑，电脑只会变得更快更强大是一个相对安全的假设。这个想法基于摩尔定律，摩尔定律描述的是一种现象：组件的密度会每两年增加一倍。令人难以置信的是，这个现象在21世纪一直存在，有些人甚至认为，在最新的研究中仍然是正确的。那么为什么在最近的10年里普通电脑的速度趋于平稳？</p>
+<p>用户去购买电脑的时候，处理速度不是用户看重的唯一特性。速度快的电脑会非常耗能，发热严重，而且非常贵。有时候，人们需要一款续航很好的电脑。有时候，他们需要一款微型的触控电脑，可以放进裤兜里，而且一整天都不用充电。先进的计算技术使得这个成为可能（令人惊讶！），但是是以原始速度为代价的。就像汽车一样，不可能越快越高效，电脑也是一样的。解决方案就是在一个CPU芯片上集成很多个“电脑”（核心）。一个智能手机拥有4个低性能的核心是很常见的。</p>
+<p>不幸的是，浏览器的历史设计对上行速度做了假设。而且，要编写能够同时利用CPU的多核心的代码是很复杂的。如此一来，在这个到处都是小电脑的时代，我们要如何创造一个快速、高效的浏览器呢？</p>
+<p>我们有一些想法。</p>
+<p>在接下来的几个月里，我们一起来仔细看看Firefox上的一些新的变化，以及Firefox是如何充分利用硬件的优势呈现一个快速稳定的浏览器来点亮网站的吧。</p>
+<p>前进！</p>
+<p>以上。我第一完整地翻译一篇英文技术文章，文中有诸多生硬拗口甚至难以理解的地方。请看官们帮忙指正，勿喷。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/浏览器/" rel="tag"># 浏览器</a>
+          
+            <a href="/tags/渲染引擎原理/" rel="tag"># 渲染引擎原理</a>
+          
+            <a href="/tags/Gecko/" rel="tag"># Gecko</a>
+          
+            <a href="/tags/Firefox/" rel="tag"># Firefox</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/04/Mac常用软件收集/" rel="next" title="Mac常用软件收集">
+                <i class="fa fa-chevron-left"></i> Mac常用软件收集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/27/JavaScript创建对象的方式汇总/" rel="prev" title="JavaScript创建对象的方式汇总">
+                JavaScript创建对象的方式汇总 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Rico" />
+          <p class="site-author-name" itemprop="name">Rico</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ricosmall" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#样式"><span class="nav-number">1.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准"><span class="nav-number">2.</span> <span class="nav-text">标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摩尔定律不再"><span class="nav-number">3.</span> <span class="nav-text">摩尔定律不再</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rico</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ricosmall.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/05/17/Quantum聚焦：什么是浏览器引擎/';
+          this.page.identifier = '2017/05/17/Quantum聚焦：什么是浏览器引擎/';
+          this.page.title = 'Quantum聚焦：什么是浏览器引擎？';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ricosmall.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
