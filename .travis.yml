@@ -11,7 +11,7 @@ cache:
 install:
   # - npm install -g hexo-cli
   # - npm install
-  # - yarn
+  - yarn
   # - npm install hexo-generator-feed@1
   # - yarn add hexo-generator-feed@1
 
@@ -23,10 +23,11 @@ before_script:
 
 script:
   # - hexo generate
+  cd ./public
 
 
 after_script:
-  - cd ./public
+  # - cd ./public
   - git init
   - git config user.name "ricosmall"
   - git config user.email "805163443@qq.com"
