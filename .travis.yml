@@ -1,5 +1,5 @@
 language: node_js
-node_js: 7.0.0
+node_js: 8.9.4
 
 # Travis-CI Caching
 cache:
@@ -17,8 +17,8 @@ install:
 
 before_script:
  # - npm install -g gulp
-  # - git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 ./themes/next
-  - git clone https://github.com/theme-next/hexo-theme-next.git --depth=1 ./themes/next
+  - git clone https://github.com/ricosmall/hexo-theme-next.git --depth=1 ./themes/next
+  # - git clone https://github.com/theme-next/hexo-theme-next.git --depth=1 ./themes/next
 
 
 script:
