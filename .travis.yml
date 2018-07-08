@@ -9,11 +9,11 @@ cache:
 
 # S: Build Lifecycle
 install:
-  - npm install -g hexo-cli
+  # - npm install -g hexo-cli
   # - npm install
   - yarn
   # - npm install hexo-generator-feed@1
-  - yarn add hexo-generator-feed@1
+  # - yarn add hexo-generator-feed@1
 
 before_script:
  # - npm install -g gulp
