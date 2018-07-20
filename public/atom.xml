@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-01T04:33:56.149Z</updated>
+  <updated>2018-07-20T07:14:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,81 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>微信公众号问题记录（一）</title>
+    <link href="http://yoursite.com/2018/07/20/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://yoursite.com/2018/07/20/微信公众号问题记录（一）/</id>
+    <published>2018-07-20T06:03:36.000Z</published>
+    <updated>2018-07-20T07:14:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：<code>H5 支付</code>和<code>公众号支付</code>。在微信外面打开的网页可以用<code>H5 支付</code>，在微信里面打开该网页的时候只能使用<code>公众号支付</code>。</p>
+<a id="more"></a>
+<h2 id="微信登陆失败"><a href="#微信登陆失败" class="headerlink" title="微信登陆失败"></a>微信登陆失败</h2><p>调用微信公众号支付需要拿到用户的 openid，这里涉及到微信网页授权。在授权的过程中可能会碰到以下问题：</p>
+<h3 id="redirect-uri-域名与后台配置不一致"><a href="#redirect-uri-域名与后台配置不一致" class="headerlink" title="redirect_uri 域名与后台配置不一致"></a>redirect_uri 域名与后台配置不一致</h3><blockquote>
+<p>错误信息：redirect_uri 域名与后台配置不一致，错误码：10003</p>
+</blockquote>
+<p>错误截图：</p>
+<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/27197160.jpg" alt="redirect_uri 错误"></p>
+<p>问题原因及解决办法：</p>
+<p>获取 openid 需要重定向到微信的链接地址，格式如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE<span class="comment">#wechat_redirect</span></div></pre></td></tr></table></figure>
+<p>其中有个参数 redirect_uri，意思是微信授权成功后的回调地址，这个回调地址必须是微信公众号设置里面「网页授权域名」下面的地址，否则会报以上错误。</p>
+<p>需要注意的是，此处的「网页授权域名」必须是精确的域名。如果 redirect_uri 为 xxx.com/xxx.html，那就要填写 xxx.com。如果 redirect_uri 为 xxx.xxx.com/xxx.html，那就要填写 xxx.xxx.com。</p>
+<p>还有一个隐藏的问题，如果有多个域名下的网页需要获取 openid，即微信网页授权，就会碰到「网页授权域名」只能填写一个而导致其他域名下的地址都无法作为 redirect_uri 的值。这里比较合适的做法就是通过已经填写的那个「网页授权域名」做一个中转，此处不详述中转做法。</p>
+<h3 id="不支持微信开放平台-Appid"><a href="#不支持微信开放平台-Appid" class="headerlink" title="不支持微信开放平台 Appid"></a>不支持微信开放平台 Appid</h3><blockquote>
+<p>错误信息：不支持开放平台 Appid，请使用公众号 Appid，错误代码：10016</p>
+</blockquote>
+<p>错误截图：</p>
+<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/667058.jpg" alt="不支持开放平台 Appid"></p>
+<p>问题原因及解决办法：</p>
+<p>上一个问题中，重定向到微信的地址时需要填写 appid 的参数，这个参数一定要用公众号的 appid。</p>
+<h2 id="调用公众号支付失败"><a href="#调用公众号支付失败" class="headerlink" title="调用公众号支付失败"></a>调用公众号支付失败</h2><h3 id="调用支付-JSAPI-缺少参数"><a href="#调用支付-JSAPI-缺少参数" class="headerlink" title="调用支付 JSAPI 缺少参数"></a>调用支付 JSAPI 缺少参数</h3><blockquote>
+<p>错误信息：调用支付 JSAPI 缺少参数：total_fee</p>
+</blockquote>
+<p>错误截图：</p>
+<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/43053749.jpg" alt="调用支付 JSAPI 缺少参数"></p>
+<p>问题原因及解决办法：</p>
+<p>官方调用支付 JSAPI 示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onBridgeReady</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    WeixinJSBridge.invoke(</div><div class="line">        <span class="string">'getBrandWCPayRequest'</span>, &#123;</div><div class="line">            <span class="string">"appId"</span>:<span class="string">"wx2421b1c4370ec43b"</span>,                        <span class="comment">//公众号名称，由商户传入</span></div><div class="line">            <span class="string">"timeStamp"</span>:<span class="string">"1395712654"</span>,                            <span class="comment">//时间戳，自1970年以来的秒数</span></div><div class="line">            <span class="string">"nonceStr"</span>:<span class="string">"e61463f8efa94090b1f366cccfbbb444"</span>,       <span class="comment">//随机串</span></div><div class="line">            <span class="string">"package"</span>:<span class="string">"prepay_id=u802345jgfjsdfgsdg888"</span>,</div><div class="line">            <span class="string">"signType"</span>:<span class="string">"MD5"</span>,                                    <span class="comment">//微信签名方式：</span></div><div class="line">            <span class="string">"paySign"</span>:<span class="string">"70EA570631E4BB79628FBCA90534C63FF7FADD89"</span> <span class="comment">//微信签名</span></div><div class="line">        &#125;,</div><div class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span>(res.err_msg == <span class="string">"get_brand_wcpay_request:ok"</span> )&#123;</div><div class="line">            <span class="comment">// 使用以上方式判断前端返回,微信团队郑重提示：</span></div><div class="line">            <span class="comment">// res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> WeixinJSBridge == <span class="string">"undefined"</span>) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;</div><div class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">'WeixinJSBridgeReady'</span>, onBridgeReady, <span class="literal">false</span>);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.attachEvent) &#123;</div><div class="line">        <span class="built_in">document</span>.attachEvent(<span class="string">'WeixinJSBridgeReady'</span>, onBridgeReady);</div><div class="line">        <span class="built_in">document</span>.attachEvent(<span class="string">'onWeixinJSBridgeReady'</span>, onBridgeReady);</div><div class="line">    &#125;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    onBridgeReady();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要特别注意 package 参数，必须是 <code>prepay_id=xxx</code> 这种形式。</p>
+<h3 id="商户传入的-appid-参数不正确"><a href="#商户传入的-appid-参数不正确" class="headerlink" title="商户传入的 appid 参数不正确"></a>商户传入的 appid 参数不正确</h3><blockquote>
+<p>错误信息：商户传入的 appid 参数不正确，请联系商户处理。</p>
+</blockquote>
+<p>错误截图：</p>
+<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/19805189.jpg" alt="商户传入的 appid 参数不正确"></p>
+<p>错误原因及解决办法：</p>
+<p>这种情况一般是后端用错了 appid 导致，可能是后端错误地用成了开放平台的 appid 导致。此处采用的是公众号支付，因此一定要传公众号的 appid。</p>
+<h3 id="支付验证签名失败"><a href="#支付验证签名失败" class="headerlink" title="支付验证签名失败"></a>支付验证签名失败</h3><blockquote>
+<p>错误信息：支付验证签名失败。</p>
+</blockquote>
+<p>错误截图：</p>
+<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/68276262.jpg" alt="支付验证签名失败"></p>
+<p>错误原因及解决办法：</p>
+<p>这种情况就是签名算法的问题。微信开放平台支付的签名算法和公众号支付的签名算法是不同的，表现在以下两个方面：公众号支付的签名算法要求注意大小写，开放平台支付的签名是全小写的；公众号支付的签名字段和开放平台支付的签名字段不一样。此处严格按照官方文档去写签名算法就好了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：&lt;code&gt;H5 支付&lt;/code&gt;和&lt;code&gt;公众号支付&lt;/code&gt;。在微信外面打开的网页可以用&lt;code&gt;H5 支付&lt;/code&gt;，在微信里面打开该网页的时候只能使用&lt;code&gt;公众号支付&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://yoursite.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Vue" scheme="http://yoursite.com/tags/Vue/"/>
+    
+      <category term="公众号支付" scheme="http://yoursite.com/tags/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%94%AF%E4%BB%98/"/>
+    
+      <category term="JSAPI" scheme="http://yoursite.com/tags/JSAPI/"/>
+    
+  </entry>
+  
+  <entry>
     <title>解决Vue项目中audio元素在移动端无法自动播放的问题</title>
     <link href="http://yoursite.com/2018/03/30/%E8%A7%A3%E5%86%B3Vue%E9%A1%B9%E7%9B%AE%E4%B8%ADaudio%E5%85%83%E7%B4%A0%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%97%A0%E6%B3%95%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BE%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/</id>
     <published>2018-03-30T02:15:12.000Z</published>
-    <updated>2018-04-01T04:33:56.149Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 <code>audio</code> 元素，设置好属性就算完了。就像下面这样：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"path/to/music"</span> <span class="attr">loop</span> <span class="attr">autoplay</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -89,7 +159,7 @@
     <link href="http://yoursite.com/2018/03/29/%E5%AD%A6%E4%B9%A0React%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://yoursite.com/2018/03/29/学习React（二）/</id>
     <published>2018-03-29T15:10:34.000Z</published>
-    <updated>2018-03-29T15:26:53.682Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><p>React 组件分为函数式组件（Functional Components） 和类式组件（Class Components）。从字面意思可以看出来，组件可以写成函数形式，也可以写成类的形式。</p>
 <a id="more"></a>
@@ -120,7 +190,7 @@
     <link href="http://yoursite.com/2018/03/28/%E8%A7%A3%E5%86%B3SecureCRT%E6%97%A0%E6%B3%95%E4%BF%9D%E5%AD%98%E5%AF%86%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2018/03/28/解决SecureCRT无法保存密码的问题/</id>
     <published>2018-03-28T15:08:45.000Z</published>
-    <updated>2018-03-28T15:27:43.956Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在 SecureCRT 上登录同一台机器，每次都要输入密码，非常繁琐。登录的时候「保存密码」的选项又是勾上的，就是不起作用，怎么办呢？</p>
 <p><img src="http://o9o8lcfa3.bkt.clouddn.com/securecrt-connect.png" alt="login-settings"></p>
@@ -149,7 +219,7 @@
     <link href="http://yoursite.com/2018/03/27/%E5%AD%A6%E4%B9%A0React%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://yoursite.com/2018/03/27/学习React（一）/</id>
     <published>2018-03-27T13:57:11.000Z</published>
-    <updated>2018-03-27T15:30:54.663Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>随着了解的使用 React 大法的项目慢慢变多，渐渐产生了兴趣，想要从头好好看看 React。因此就有了这个起手式。</p>
 <a id="more"></a>
@@ -177,7 +247,7 @@
     <link href="http://yoursite.com/2017/12/05/python-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     <id>http://yoursite.com/2017/12/05/python-二分查找/</id>
     <published>2017-12-05T01:41:19.000Z</published>
-    <updated>2018-03-27T13:52:33.772Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>常见简单算法之 – 二分查找</p>
 <a id="more"></a>
@@ -208,7 +278,7 @@
     <link href="http://yoursite.com/2017/11/24/XSS%E9%98%B2%E5%BE%A1/"/>
     <id>http://yoursite.com/2017/11/24/XSS防御/</id>
     <published>2017-11-24T11:57:23.000Z</published>
-    <updated>2018-03-27T13:52:33.772Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>XSS 攻击是一个很大的 Web 安全问题。XSS 攻击无处不在，但是到目前为止没有一套简单成熟的防御机制。</p>
 <a id="more"></a>
@@ -302,7 +372,7 @@
     <link href="http://yoursite.com/2017/10/27/nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84Express%E5%A6%82%E4%BD%95%E6%8B%BF%E5%88%B0%E7%9C%9F%E5%AE%9E%E5%AE%A2%E6%88%B7%E7%AB%AFIP/"/>
     <id>http://yoursite.com/2017/10/27/nginx反向代理的Express如何拿到真实客户端IP/</id>
     <published>2017-10-27T10:56:17.000Z</published>
-    <updated>2018-03-27T13:52:33.772Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近碰到一个苦恼的问题，Express 的后端打印客户端的真实 IP 地址，结果打印出来的全部是<code>127.0.0.1</code>。如果你也碰到了这个问题，那么恭喜你，我接下来就告诉你怎么解决。</p>
 <a id="more"></a>
@@ -337,7 +407,7 @@
     <link href="http://yoursite.com/2017/10/18/Linux%E4%B8%8BSVN%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E4%BF%9D%E5%AD%98%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2017/10/18/Linux下SVN账号密码保存方法/</id>
     <published>2017-10-18T01:47:11.000Z</published>
-    <updated>2018-03-27T13:52:33.772Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>Linux下进行SVN操作的时候总是提示要输入密码，很不方便，尤其是集成到<code>npm scripts</code>上的时候，你不想明写密码，但是如果不写，每次都提示要输入密码，不同用户协作起来更加麻烦。</p>
 <a id="more"></a>
@@ -386,7 +456,7 @@
     <link href="http://yoursite.com/2017/09/30/Java%E5%90%8E%E7%AB%AF%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8EFreeMarker/"/>
     <id>http://yoursite.com/2017/09/30/Java后端模板引擎FreeMarker/</id>
     <published>2017-09-30T08:43:33.000Z</published>
-    <updated>2018-03-27T13:52:33.772Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>业务后端使用的是Java后端，考虑到SEO是不可忽略的需求，采用FreeMarker模板引擎做页面开发。</p>
 <a id="more"></a>
@@ -413,7 +483,7 @@
     <link href="http://yoursite.com/2017/09/29/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%BC%95%E5%85%A5%E7%9A%84%E6%84%8F%E4%B9%89/"/>
     <id>http://yoursite.com/2017/09/29/前端框架引入的意义/</id>
     <published>2017-09-29T09:24:47.000Z</published>
-    <updated>2018-03-27T13:52:33.771Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>如今的 Web 前端领域什么最火？当然是前端框架啦。 React 听过吗？ Angular 听过吗？ Vue 听过么？如果都没有听过就不用往下看了。</p>
 <a id="more"></a>
@@ -450,7 +520,7 @@
     <link href="http://yoursite.com/2017/08/28/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E4%B8%8A%E9%85%8D%E7%BD%AEHTTPS/"/>
     <id>http://yoursite.com/2017/08/28/手把手教你在阿里云ECS上配置HTTPS/</id>
     <published>2017-08-28T03:46:08.000Z</published>
-    <updated>2018-03-27T13:52:33.771Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>上HTTPS的理由不用多说，直接上教程。</p>
 <a id="more"></a>
@@ -482,7 +552,7 @@
     <link href="http://yoursite.com/2017/08/27/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E4%B8%8A%E9%9D%A2%E5%AE%89%E8%A3%85nginx/"/>
     <id>http://yoursite.com/2017/08/27/手把手教你在阿里云ECS上面安装nginx/</id>
     <published>2017-08-27T08:48:09.000Z</published>
-    <updated>2018-03-27T13:52:33.771Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>一直想给自己弄一个云服务器和自己的域名，现在抓住了机会。阿里云有<a href="https://www.aliyun.com/activity#/" target="_blank" rel="external">免费和非常实惠的新手大礼包</a>。如果你也想体验一下，可以试试，我当时申请的就是<a href="https://free.aliyun.com/?type=personal" target="_blank" rel="external">这种</a>。</p>
 <a id="more"></a>
@@ -530,7 +600,7 @@
     <link href="http://yoursite.com/2017/08/02/JavaScript%E8%B7%A8%E5%9F%9F%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/08/02/JavaScript跨域方法总结/</id>
     <published>2017-08-02T01:15:37.000Z</published>
-    <updated>2018-03-27T13:52:33.771Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>需要开发一个浏览器端检测的页面，碰到了跨域的问题。回过头来仔细研究一下跨域的问题，做个总结。</p>
 <blockquote>
@@ -566,7 +636,7 @@
     <link href="http://yoursite.com/2017/08/01/CSS%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E7%9C%81%E7%95%A5%E6%98%BE%E7%A4%BA/"/>
     <id>http://yoursite.com/2017/08/01/CSS多行文本溢出省略显示/</id>
     <published>2017-08-01T09:26:02.000Z</published>
-    <updated>2018-03-27T13:52:33.771Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>本文参考了<a href="http://lomu.me/" target="_blank" rel="external">Lomu</a>的文章<a href="http://lomu.me/post/css-multiline-text-overflow" target="_blank" rel="external">CSS多行文本溢出省略显示</a></p>
@@ -622,7 +692,7 @@
     <link href="http://yoursite.com/2017/08/01/%E4%BD%BF%E7%94%A8Travis%E5%AE%9E%E7%8E%B0hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     <id>http://yoursite.com/2017/08/01/使用Travis实现hexo博客的自动化部署/</id>
     <published>2017-08-01T03:40:25.000Z</published>
-    <updated>2018-03-27T13:52:33.771Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>一直想写一篇文章，记录一下从搭建博客到实现用<a href="https://www.travis-ci.org" target="_blank" rel="external">Travis-CI</a>自动化部署博客的过程。憋到现在才写，拖了很久。</p>
 <a id="more"></a>
@@ -656,7 +726,7 @@
     <link href="http://yoursite.com/2017/07/20/%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%97%E6%B3%95/"/>
     <id>http://yoursite.com/2017/07/20/可视化算法/</id>
     <published>2017-07-20T00:59:30.000Z</published>
-    <updated>2018-03-27T13:52:33.770Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>一篇赏心悦目的可视化算法文章。</p>
 <p><strong><a href="https://bost.ocks.org/mike/algorithms/" target="_blank" rel="external">Visualizing Algorithms</a></strong></p>
@@ -684,7 +754,7 @@
     <link href="http://yoursite.com/2017/07/04/JavaScript%E6%A8%A1%E5%9D%97%E7%AE%80%E5%8F%B2/"/>
     <id>http://yoursite.com/2017/07/04/JavaScript模块简史/</id>
     <published>2017-07-04T02:40:22.000Z</published>
-    <updated>2018-03-27T13:52:33.770Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>你是否是 JavaScript 新手？并且对模块，模块加载器和模块打包器感到困惑吗？或者你已经编写了一段时间的 JavaScript ，但是没法掌握模块的一些术语？你是否听过 CommonJS、AMD、Browserify、SystemJS、Webpack、JSPM 等等术语，但是不理解我们为什么需要它们？</p>
@@ -719,7 +789,7 @@
     <link href="http://yoursite.com/2017/07/04/JavaScript%E6%A0%87%E5%87%86%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC/"/>
     <id>http://yoursite.com/2017/07/04/JavaScript标准编码风格/</id>
     <published>2017-07-04T02:24:03.000Z</published>
-    <updated>2018-03-27T13:52:33.770Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>JavaScript 代码规范，自带 linter &amp; 代码自动修正</p>
@@ -763,7 +833,7 @@
     <link href="http://yoursite.com/2017/06/13/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://yoursite.com/2017/06/13/JavaScript设计模式（一）/</id>
     <published>2017-06-13T00:58:29.000Z</published>
-    <updated>2018-03-27T13:52:33.770Z</updated>
+    <updated>2018-07-09T01:39:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="创建对象的基本模式"><a href="#创建对象的基本模式" class="headerlink" title="创建对象的基本模式"></a>创建对象的基本模式</h2><p>JavaScript中创建对象的基本模式有3种。第一种是门户大开型，它只能提供公用成员；第二种是使用下划线来表示方法或属性的私用性；第三种做法使用闭包来创建真正私用的成员，这些成员只能通过一些特权方法来访问。</p>
 <p>不能简单地说这些定义类的模式中哪种是‘正确的’。它们各有利弊。</p>
@@ -797,176 +867,6 @@
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
     
       <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaScript开发规范</title>
-    <link href="http://yoursite.com/2017/06/02/JavaScript%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"/>
-    <id>http://yoursite.com/2017/06/02/JavaScript开发规范/</id>
-    <published>2017-06-02T14:41:28.000Z</published>
-    <updated>2018-03-27T13:52:33.770Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-命名规范"><a href="#1-命名规范" class="headerlink" title="1. 命名规范"></a>1. 命名规范</h2><h3 id="驼峰式命名法："><a href="#驼峰式命名法：" class="headerlink" title="驼峰式命名法："></a>驼峰式命名法：</h3><p>驼峰式命名法由大（小）写字母开始，后续每个单词首字母都大写。<br>按照第一个字母是否大写，分为：</p>
-<ul>
-<li>Pascal Case 大驼峰式命名法：首字母大写。如：StudentInfo</li>
-<li>Camel Case 小驼峰式命名法：首字母小写。如：studentInfo</li>
-</ul>
-<a id="more"></a>
-<h3 id="1-1-变量"><a href="#1-1-变量" class="headerlink" title="1.1 变量"></a>1.1 变量</h3><p>命名方法： 小驼峰式命名法<br>命名规范： 前缀应当是名词。（函数的名字前缀为动词，以此区分变量和函数）<br>命名建议：尽量在变量名字中体现所属类型，如：length、count等表示数字类型；而包含name、title表示为字符串类型。</p>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// good</span></div><div class="line"><span class="keyword">var</span> maxCount = <span class="number">10</span>;</div><div class="line"><span class="keyword">var</span> tableTitle = <span class="string">'LoginTable'</span>;</div><div class="line"></div><div class="line"><span class="comment">// bad</span></div><div class="line"><span class="keyword">var</span> setCount = <span class="number">10</span>;</div><div class="line"><span class="keyword">var</span> getTitle = <span class="string">'LoginTable'</span>;</div></pre></td></tr></table></figure>
-<h3 id="1-2-函数"><a href="#1-2-函数" class="headerlink" title="1.2 函数"></a>1.2 函数</h3><p>命名方法：小驼峰式命名法<br>命名规范：前缀应当为动词<br>命名建议：可以使用常见动词约定</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">动词</th>
-<th style="text-align:left">含义</th>
-<th style="text-align:left">返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">can</td>
-<td style="text-align:left">判断是否可执行某个动作（权限）</td>
-<td style="text-align:left">Boolean</td>
-</tr>
-<tr>
-<td style="text-align:left">has</td>
-<td style="text-align:left">判断是否含有某个值</td>
-<td style="text-align:left">Boolean</td>
-</tr>
-<tr>
-<td style="text-align:left">is</td>
-<td style="text-align:left">判断是否为某个值</td>
-<td style="text-align:left">Boolean</td>
-</tr>
-<tr>
-<td style="text-align:left">get</td>
-<td style="text-align:left">获取某个值</td>
-<td style="text-align:left">NOT Boolean</td>
-</tr>
-<tr>
-<td style="text-align:left">set</td>
-<td style="text-align:left">设置某个值</td>
-<td style="text-align:left">无返回值、Boolean或者返回链式对象</td>
-</tr>
-<tr>
-<td style="text-align:left">load</td>
-<td style="text-align:left">加载某些数据</td>
-<td style="text-align:left">无返回值或加载状态</td>
-</tr>
-</tbody>
-</table>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 判断是否可读</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">canRead</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 获取名字</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="1-3-常量"><a href="#1-3-常量" class="headerlink" title="1.3 常量"></a>1.3 常量</h3><p>命名方法：名称全部大写<br>命名规范：使用大写字母和下划线组合命名，下划线用以分割单词<br>命名建议：参照1.1</p>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MAX_COUNT = <span class="number">10</span>;</div><div class="line"><span class="keyword">var</span> URL = <span class="string">'http://www.lrts.me'</span>;</div></pre></td></tr></table></figure>
-<h3 id="1-4-构造函数"><a href="#1-4-构造函数" class="headerlink" title="1.4 构造函数"></a>1.4 构造函数</h3><p>命名方法：大驼峰式命名法<br>命名规范：前缀为名称<br>命名建议：无</p>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> student1 = <span class="keyword">new</span> Student(<span class="string">'Tom'</span>);</div></pre></td></tr></table></figure>
-<h3 id="1-5-类的成员"><a href="#1-5-类的成员" class="headerlink" title="1.5 类的成员"></a>1.5 类的成员</h3><p>命名建议：</p>
-<ul>
-<li>公共属性和方法：跟变量和函数的命名一样</li>
-<li>私有属性和方法：前缀为_（下划线），后面跟公共属性和方法一样的命名方式</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 私有属性</span></div><div class="line">    <span class="keyword">var</span> _name = name;</div><div class="line"></div><div class="line">    <span class="comment">// 公共方法</span></div><div class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> _name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">        _name = value;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> student1 = <span class="keyword">new</span> Student(<span class="string">'Tom'</span>);</div><div class="line">student1.setName(<span class="string">'John'</span>);</div><div class="line"><span class="built_in">console</span>.log(student1.getName()); <span class="comment">// =&gt; John</span></div></pre></td></tr></table></figure>
-<h2 id="2-注释规范"><a href="#2-注释规范" class="headerlink" title="2. 注释规范"></a>2. 注释规范</h2><p>JavaScript支持两种不同类型的注释：单行注释和多行注释。</p>
-<h3 id="2-1-单行注释"><a href="#2-1-单行注释" class="headerlink" title="2.1 单行注释"></a>2.1 单行注释</h3><p>说明：单行注释以两个斜杠开始，以行尾结束<br>语法：<code>//</code> 这是单行注释<br>使用方式：</p>
-<ul>
-<li>单独一行：<code>// comments</code> 双斜杠与文字之间保留一个空格</li>
-<li>在代码后面添加注释：<code>var MAX_COUNT = 10; // comments</code> 双斜杠与代码结尾之间保留一个空格，与注释文字之间保留一个空格。</li>
-<li>注释代码：<code>// var MAX_COUNT = 10;</code> 双斜杠与代码之间保留一个空格。</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 单独一行</span></div><div class="line">setCount();</div><div class="line"></div><div class="line"><span class="keyword">var</span> MAX_COUNT = <span class="number">10</span>; <span class="comment">// 在代码后面添加注释</span></div><div class="line"></div><div class="line"><span class="comment">// 注释代码</span></div><div class="line"><span class="comment">// setName();</span></div></pre></td></tr></table></figure>
-<h3 id="2-2-多行注释"><a href="#2-2-多行注释" class="headerlink" title="2.2 多行注释"></a>2.2 多行注释</h3><p>说明：以<code>/*</code>开头，以<code>*/</code>结尾<br>语法：<code>/* comments */</code><br>使用方法：</p>
-<ul>
-<li>若<code>/*</code>和<code>*/</code>在同一行，推荐采用单行注释</li>
-<li>若至少三行注释，第一行为<code>/*</code>，最后一行为<code>*/</code>，其他行以<code>*</code>开始，与注释文字之间保留一个空格，并且所有的<code>*</code>保持竖向对齐</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * comments line one</span></div><div class="line"><span class="comment"> * comments line two</span></div><div class="line"><span class="comment"> */</span></div><div class="line">setName();</div></pre></td></tr></table></figure>
-<h3 id="2-3-函数（方法）注释"><a href="#2-3-函数（方法）注释" class="headerlink" title="2.3 函数（方法）注释"></a>2.3 函数（方法）注释</h3><p>说明：函数（方法）注释也是多行注释的一种，但是包含了特殊的注释要求。<br>语法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 函数说明</span></div><div class="line"><span class="comment"> * @关键字</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure></p>
-<p>常用注释关键字：（只列出一部分）</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">注释名</th>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-<th style="text-align:left">示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">@param</td>
-<td style="text-align:left">@param 参数名 {参数类型} 描述信息</td>
-<td style="text-align:left">描述参数的信息</td>
-<td style="text-align:left">@param name {String} 名称</td>
-</tr>
-<tr>
-<td style="text-align:left">@return</td>
-<td style="text-align:left">@return {返回类型} 描述信息</td>
-<td style="text-align:left">描述返回值的信息</td>
-<td style="text-align:left">@return {String} 名称</td>
-</tr>
-<tr>
-<td style="text-align:left">@author</td>
-<td style="text-align:left">@author 作者名字 附属信息</td>
-<td style="text-align:left">描述此函数或者模块的作者信息</td>
-<td style="text-align:left">@author Tom 2016-10-10</td>
-</tr>
-<tr>
-<td style="text-align:left">@version</td>
-<td style="text-align:left">@version xx.xx.xx</td>
-<td style="text-align:left">描述此函数或者模块的版本号</td>
-<td style="text-align:left">@version 1.0.1</td>
-</tr>
-<tr>
-<td style="text-align:left">@example</td>
-<td style="text-align:left">@example 示例代码</td>
-<td style="text-align:left">示例函数使用方法</td>
-<td style="text-align:left">@example setName(‘John’)</td>
-</tr>
-</tbody>
-</table>
-<p>示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 合并Grid的行</span></div><div class="line"><span class="comment"> * @param grid &#123;Ext.Grid.Panel&#125; 需要合并的Grid</span></div><div class="line"><span class="comment"> * @param cols &#123;Array&#125; 需要合并的Index（序号）数组；从0开始计数，序号也包含</span></div><div class="line"><span class="comment"> * @param isAllSome &#123;Boolean&#125; 是否2个tr的cols必须完全一样才能进行合并。true: 完全一样；false(默认): 不完全一样</span></div><div class="line"><span class="comment"> * @return void</span></div><div class="line"><span class="comment"> * @author polk6 2015/07/21</span></div><div class="line"><span class="comment"> * @example</span></div><div class="line"><span class="comment"> * ______________                                  ______________</span></div><div class="line"><span class="comment"> * | 年龄 | 姓名 |                                   | 年龄 | 姓名 |</span></div><div class="line"><span class="comment"> * --------------       mergeCells(grid, [0])      --------------</span></div><div class="line"><span class="comment"> * | 18  | 张三 |               =&gt;                  |     | 张三 |</span></div><div class="line"><span class="comment"> * --------------                                  |  18 |-------</span></div><div class="line"><span class="comment"> * | 18  | 王五 |                                   |     | 王五 |</span></div><div class="line"><span class="comment"> * --------------                                  --------------</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeCells</span>(<span class="params">grid, cols, isAllSome</span>) </span>&#123;</div><div class="line">    <span class="comment">// do something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="3-框架开发"><a href="#3-框架开发" class="headerlink" title="3. 框架开发"></a>3. 框架开发</h2><p>在团队开发或者引入第三方JS的时候，有时候会造成全局对象的命名冲突，比如a.js有个全局函数sendMsg()，b.js也有个全局函数sendMsg()，引入a.js和b.js文件时，会造成sendMsg()函数冲突。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">全局变量冲突：b.js会覆盖a.js的同名函数                                // a.js</div><div class="line">                                                                 ------------------------</div><div class="line">                                                          +----&gt; | function sendMsg() &#123; |</div><div class="line">&lt;script src=&quot;/js/b.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      |     alert(&apos;a&apos;);      |</div><div class="line">&lt;script src=&quot;/js/a.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      | &#125;                    |</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;                           |      ------------------------</div><div class="line">                                                          |      // b.js</div><div class="line">    sendMsg(); // =&gt; ‘b’                                  |      -------------------------</div><div class="line">                                                          |      | function sendMsg() &#123;  |</div><div class="line">&lt;/script&gt;                                                 +----&gt; |     alert(&apos;b&apos;);       |</div><div class="line">                                                                 | &#125;                     |</div><div class="line">                                                                 -------------------------</div></pre></td></tr></table></figure>
-<h3 id="3-2-单全局变量"><a href="#3-2-单全局变量" class="headerlink" title="3.2 单全局变量"></a>3.2 单全局变量</h3><p>所创建的全局对象名称是独一无二的，并将所有的功能代码添加到这个全局对象上。调用自己所写的代码时，以这个全局对象为入口。</p>
-<p>如：</p>
-<ul>
-<li>jQuery的全局对象：$和jQuery</li>
-<li>ExtJS的全局对象：Ext</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">全局变量冲突：b.js和a.js都有各自的主对象。                             // a.js</div><div class="line">                                                                 -----------------------------</div><div class="line">                                                                 | var A = A || &#123;&#125;;          |</div><div class="line">                                                          +----&gt; | A.sendMsg = function () &#123; |</div><div class="line">&lt;script src=&quot;/js/b.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      |     alert(&apos;a&apos;);           |</div><div class="line">&lt;script src=&quot;/js/a.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;---+      | &#125;                         |</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;                           |      -----------------------------</div><div class="line">                                                          |      // b.js</div><div class="line">    A.sendMsg(); // =&gt; ‘a’                                |      ------------------------------</div><div class="line">                                                          |      | var B = B || &#123;&#125;;           |</div><div class="line">                                                          |      | B.sendMsg = function () &#123;  |</div><div class="line">    B.sendMsg(); // =&gt; &apos;b&apos;                                +----&gt; |     alert(&apos;b&apos;);            |</div><div class="line">                                                                 | &#125;                          |</div><div class="line">                                                                 ------------------------------</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="3-3-命名空间"><a href="#3-3-命名空间" class="headerlink" title="3.3 命名空间"></a>3.3 命名空间</h3><p>在项目规模日益壮大时，可采用命名空间的方式对JS代码进行规范：即将代码按照功能进行分组，以组的形式附加到单全局对象上。</p>
-<p>以Ext的chart模块为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">                                                       ------------</div><div class="line">                                                 +---&gt; |   Axis   |</div><div class="line">                                                 |     ------------</div><div class="line">                                                 |     ------------</div><div class="line">                                                 +---&gt; | Category |</div><div class="line">                                    子模块名称     |     ------------</div><div class="line">                                    ----------   |     ------------</div><div class="line">                              +---&gt; |  axis  | --+---&gt; |    ...   |</div><div class="line">                  模块名称     |      ----------         ------------</div><div class="line">                  ---------   |     ----------         ------------</div><div class="line">            +---&gt; | chart | --+---&gt; | series | --+---&gt; |   Area   |</div><div class="line">单全局对象    |     ---------   |     ----------   |     ------------</div><div class="line">---------   |                 |     ----------   |     ------------</div><div class="line">|  Ext  | --+                 +---&gt; |  ...   |   +---&gt; |   Bar    |</div><div class="line">---------   |                       ----------   |     ------------</div><div class="line">            |     ---------                      |     ------------</div><div class="line">            +---&gt; |  ...  |                      +---&gt; |   ...    |</div><div class="line">                  ---------                            ------------</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-命名规范&quot;&gt;&lt;a href=&quot;#1-命名规范&quot; class=&quot;headerlink&quot; title=&quot;1. 命名规范&quot;&gt;&lt;/a&gt;1. 命名规范&lt;/h2&gt;&lt;h3 id=&quot;驼峰式命名法：&quot;&gt;&lt;a href=&quot;#驼峰式命名法：&quot; class=&quot;headerlink&quot; title=&quot;驼峰式命名法：&quot;&gt;&lt;/a&gt;驼峰式命名法：&lt;/h3&gt;&lt;p&gt;驼峰式命名法由大（小）写字母开始，后续每个单词首字母都大写。&lt;br&gt;按照第一个字母是否大写，分为：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Pascal Case 大驼峰式命名法：首字母大写。如：StudentInfo&lt;/li&gt;
-&lt;li&gt;Camel Case 小驼峰式命名法：首字母小写。如：studentInfo&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="规范" scheme="http://yoursite.com/categories/%E8%A7%84%E8%8C%83/"/>
-    
-    
-      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-      <category term="开发规范" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"/>
     
   </entry>
   
