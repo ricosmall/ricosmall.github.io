@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2018%2F11%2F02%2FSUMMARY%2F</url>
+    <content type="text"><![CDATA[Summaryhello word]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[微信公众号问题记录（一）]]></title>
     <url>%2F2018%2F07%2F20%2F%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
     <content type="text"><![CDATA[问题描述开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：H5 支付和公众号支付。在微信外面打开的网页可以用H5 支付，在微信里面打开该网页的时候只能使用公众号支付。 微信登陆失败调用微信公众号支付需要拿到用户的 openid，这里涉及到微信网页授权。在授权的过程中可能会碰到以下问题： redirect_uri 域名与后台配置不一致错误信息： redirect_uri 域名与后台配置不一致，错误码：10003 错误截图： 问题原因及解决办法： 获取 openid 需要重定向到微信的链接地址，格式如下： 1https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect 其中有个参数 redirect_uri，意思是微信授权成功后的回调地址，这个回调地址必须是微信公众号设置里面「网页授权域名」下面的地址，否则会报以上错误。 需要注意的是，此处的「网页授权域名」必须是精确的域名。如果 redirect_uri 为 xxx.com/xxx.html，那就要填写 xxx.com。如果 redirect_uri 为 xxx.xxx.com/xxx.html，那就要填写 xxx.xxx.com。 还有一个隐藏的问题，如果有多个域名下的网页需要获取 openid，即微信网页授权，就会碰到「网页授权域名」只能填写一个而导致其他域名下的地址都无法作为 redirect_uri 的值。这里比较合适的做法就是通过已经填写的那个「网页授权域名」做一个中转，此处不详述中转做法。 不支持微信开放平台 Appid错误信息： 不支持开放平台 Appid，请使用公众号 Appid，错误代码：10016 错误截图： 问题原因及解决办法： 上一个问题中，重定向到微信的地址时需要填写 appid 的参数，这个参数一定要用公众号的 appid。 调用公众号支付失败调用支付 JSAPI 缺少参数错误信息： 调用支付 JSAPI 缺少参数：total_fee 错误截图： 问题原因及解决办法： 官方调用支付 JSAPI 示例如下： 123456789101112131415161718192021222324252627function onBridgeReady() &#123; WeixinJSBridge.invoke( 'getBrandWCPayRequest', &#123; "appId":"wx2421b1c4370ec43b", //公众号名称，由商户传入 "timeStamp":"1395712654", //时间戳，自1970年以来的秒数 "nonceStr":"e61463f8efa94090b1f366cccfbbb444", //随机串 "package":"prepay_id=u802345jgfjsdfgsdg888", "signType":"MD5", //微信签名方式： "paySign":"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名 &#125;, function(res)&#123; if(res.err_msg == "get_brand_wcpay_request:ok" )&#123; // 使用以上方式判断前端返回,微信团队郑重提示： // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 &#125; &#125;);&#125;if (typeof WeixinJSBridge == "undefined") &#123; if (document.addEventListener) &#123; document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false); &#125; else if (document.attachEvent) &#123; document.attachEvent('WeixinJSBridgeReady', onBridgeReady); document.attachEvent('onWeixinJSBridgeReady', onBridgeReady); &#125;&#125; else &#123; onBridgeReady();&#125; 要特别注意 package 参数，必须是 prepay_id=xxx 这种形式。 商户传入的 appid 参数不正确错误信息： 商户传入的 appid 参数不正确，请联系商户处理。 错误截图： 错误原因及解决办法： 这种情况一般是后端用错了 appid 导致，可能是后端错误地用成了开放平台的 appid 导致。此处采用的是公众号支付，因此一定要传公众号的 appid。 支付验证签名失败错误信息： 支付验证签名失败。 错误截图： 错误原因及解决办法： 这种情况就是签名算法的问题。微信开放平台支付的签名算法和公众号支付的签名算法是不同的，表现在以下两个方面：公众号支付的签名算法要求注意大小写，开放平台支付的签名是全小写的；公众号支付的签名字段和开放平台支付的签名字段不一样。此处严格按照官方文档去写签名算法就好了。]]></content>
@@ -143,9 +148,9 @@
         <category>教程</category>
       </categories>
       <tags>
-        <tag>nginx</tag>
         <tag>HTTPS</tag>
         <tag>HTTP</tag>
+        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
