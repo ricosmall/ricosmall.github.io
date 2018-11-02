@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e381c2;
+  background: #55cdd4;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2902,27 +2902,5 @@ hr {
   .footer-inner {
     width: auto;
     text-align: center;
-  }
-}
-.site-meta {
-  margin-left: 0;
-}
-.logo-line-before,
-.logo-line-after {
-  width: 100%;
-}
-table {
-  border-left: none;
-  border-right: none;
-}
-th,
-td {
-  border-bottom: 1px solid #ddd;
-  border-right: none;
-}
-@media screen and (max-width: 767px) {
-  .menu .menu-item {
-    line-height: 3em;
-    border-bottom: 1px dotted #aaa;
   }
 }
