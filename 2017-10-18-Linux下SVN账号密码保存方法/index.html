@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/app.b6f197430f783b3e67aa.css">code[class*=language-],pre[class*=language-]{color:#f8f8f2;background:none;text-shadow:0 1px rgba(0,0,0,.3);font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;border-radius:.3em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#272822}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#f8f8f2}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#f92672}.token.boolean,.token.number{color:#ae81ff}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a6e22e}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#f8f8f2}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#e6db74}.token.keyword{color:#66d9ef}.token.important,.token.regex{color:#fd971f}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><style data-href="/1.76e6c55a11ab238cc939.css">@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-50d279861fb3cbfed809eae6ed8b9ac9.woff2) format("woff2"),url(/static/montserrat-latin-100-5e334eff013f12fbb8ed72c2a253f119.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-8c0705336558194799a8729840d7ed9d.woff2) format("woff2"),url(/static/montserrat-latin-100italic-03e19243272affe738654a157625ec26.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-4343d3d91a9446226e7a8bbb024111ad.woff2) format("woff2"),url(/static/montserrat-latin-200-f2022ecd65a0703ec3edcb7641709a75.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-116c4c4b14ef76b0555da09854512022.woff2) format("woff2"),url(/static/montserrat-latin-200italic-89614a6008fc5c60739012463d0ee7e6.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-d2ad295b60682a6537c358e06ea80c61.woff2) format("woff2"),url(/static/montserrat-latin-300-3a371ee0d175f5c2b15ce1d6b981dc4e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-f6b6bf2431003f8142e800f9df157989.woff2) format("woff2"),url(/static/montserrat-latin-300italic-16521668f5f238098329cdd7d27c391e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-240a84447b78da0920fcb07e378f2c5f.woff2) format("woff2"),url(/static/montserrat-latin-400-b20cc131034316b1c85d0498fb9ed5c5.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-86172bb829de6be08b92512096b6aca6.woff2) format("woff2"),url(/static/montserrat-latin-400italic-9405e78785a55cf0e4ea7669d4616ea9.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-fb8d6b71dbe8d9294be43082936f649e.woff2) format("woff2"),url(/static/montserrat-latin-500-50825d47af7ae47e055018eb689c6c99.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c0a555a4f8e997385a3eebbd4da0b9ee.woff2) format("woff2"),url(/static/montserrat-latin-500italic-635de59c4be86285b1f70068c95b9816.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-d5615136a08cfee70deb4be1ee1651df.woff2) format("woff2"),url(/static/montserrat-latin-600-f300da4fb4fe00e23915f62b2c643681.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-10f29d139edacde92df63374c5672568.woff2) format("woff2"),url(/static/montserrat-latin-600italic-2bc37d86a4ba12ce526c4af904a9946e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7d77e1f03eefc452dab14d7f89080083.woff2) format("woff2"),url(/static/montserrat-latin-700-81826529772e52f0f14a4c73c2f2c7f1.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-1dd2b53f1567a29e0505de9b27c4352c.woff2) format("woff2"),url(/static/montserrat-latin-700italic-c162d257f5e9f9b108a96a604cfb2132.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-d4e7bf86bbd8e5f43ca73fa831218648.woff2) format("woff2"),url(/static/montserrat-latin-800-895aadbff357be35ac8dd107c7975ee7.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-fc0cbe442f7b3733c91e982e825c4daa.woff2) format("woff2"),url(/static/montserrat-latin-800italic-b3362875067300abedb7a8fb97903258.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-c8bdd772c0d1347720ff7e3fb72719f3.woff2) format("woff2"),url(/static/montserrat-latin-900-1b99ef78e627dd9bbd0ca4b5c0789547.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-cb72c1f90f66c124fb897a75bec64c78.woff2) format("woff2"),url(/static/montserrat-latin-900italic-b78bb9f8ecec6c5a924c873f1818095f.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-f015f1e9a46a3b9db4fd64564dacece4.woff2) format("woff2"),url(/static/merriweather-latin-300-92dfe81b725c342d31d962da975c07a6.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-7fd86b32accf2df4403d1d4fa3a81502.woff2) format("woff2"),url(/static/merriweather-latin-300italic-878b76f59d5ba58dd1652dc8d2a0f4f9.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-12dbf4c00ae43698f278b099e4b0ec9e.woff2) format("woff2"),url(/static/merriweather-latin-400-1fffad22b085a877995812dbf1d9ac08.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-1e0d3e8121d88969bfb153c8f174b758.woff2) format("woff2"),url(/static/merriweather-latin-400italic-de18d4c4e8e808a7248a185f866ff094.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-dc8fec81a125fc63856587e6683da73b.woff2) format("woff2"),url(/static/merriweather-latin-700-d7d2ed8e58f303392cc3fc00ba3a9186.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-b7b7e5da4d7be8c12bd5a6c809edc8fc.woff2) format("woff2"),url(/static/merriweather-latin-700italic-6210a5fc1c54ca85a5d82aa85d7a9b5c.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-43f870d543dd89fbeb66d417c0d97276.woff2) format("woff2"),url(/static/merriweather-latin-900-8f3806df74937c7b8b53f24ae1e725d1.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-168c1ab28ed0e4e7d654334def288bc1.woff2) format("woff2"),url(/static/merriweather-latin-900italic-ae7778f01871e35ee142ef207b313b34.woff) format("woff")}</style><meta name="generator" content="Gatsby 2.0.62"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><link rel="shortcut icon" href="/icons/icon-48x48.png"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><title data-react-helmet="true">Linux下SVN账号密码保存方法 | 进击的前端</title><meta data-react-helmet="true" name="description" content="Linux下进行SVN操作的时候总是提示要输入密码，很不方便，尤其是集成到 上的时候，你不想明写密码，但是如果不写，每次都提示要输入密码，不同用户协作起来更加麻烦。 修改配置文件 文件位置 用vim打开 原配置文件： 找到： 改为： 保存，下次SVN…"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.9);font-family:'Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:0 1px 0 0 currentColor;color:#007acc;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}a.gatsby-resp-image-link{box-shadow:none;}</style><link as="script" rel="preload" href="/component---src-templates-blog-post-js-eeb672c25def62341770.js"/><link as="script" rel="preload" href="/1-3652ad0ebc9391cff709.js"/><link as="script" rel="preload" href="/0-e702958d6fc33e173121.js"/><link as="script" rel="preload" href="/app-a7abcd9cb971cabfe3fa.js"/><link as="script" rel="preload" href="/webpack-runtime-d623612e523c20fc77af.js"/><link rel="preload" href="/static/d/163/path---2017-10-18-linux下-svn账号密码保存方法-a-83-64b-KbADwwA4wABXITANn6E5HZLA3M.json" as="fetch" crossOrigin="use-credentials"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div style="margin-left:auto;margin-right:auto;max-width:42rem;padding:2.625rem 1.3125rem"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:-1.75rem"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/">进击的前端</a></h3><h1>Linux下SVN账号密码保存方法</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.75rem">October 18, 2017</p><div><p>Linux下进行SVN操作的时候总是提示要输入密码，很不方便，尤其是集成到<code class="language-text">npm scripts</code>上的时候，你不想明写密码，但是如果不写，每次都提示要输入密码，不同用户协作起来更加麻烦。</p>
+<!-- more -->
+<h2>修改配置文件<code class="language-text">config</code></h2>
+<p>文件位置<code class="language-text">/home/[username]/.subversion/config</code></p>
+<p>用vim打开</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">vim /home/<span class="token punctuation">[</span>username<span class="token punctuation">]</span>/.subversion/config</code></pre></div>
+<p>原配置文件：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">### This file configures various client-side behaviors.
+###
+### The commented-out examples below are intended to demonstrate
+### how to use this file.
+
+### Section for authentication and authorization customizations.
+[auth]
+### Set password stores used by Subversion. They should be
+### delimited by spaces or commas. The order of values determines
+### the order in which password stores are used.
+### Valid password stores:
+###   gnome-keyring        (Unix-like systems)
+###   kwallet              (Unix-like systems)
+###   gpg-agent            (Unix-like systems)
+###   keychain             (Mac OS X)
+###   windows-cryptoapi    (Windows)
+# password-stores = gpg-agent,gnome-keyring,kwallet
+### To disable all password stores, use an empty list:
+# password-stores =
+###
+### Set KWallet wallet used by Subversion. If empty or unset,
+### then the default network wallet will be used.
+# kwallet-wallet =
+###
+### Include PID (Process ID) in Subversion application name when
+### using KWallet. It defaults to &#39;no&#39;.
+# kwallet-svn-application-name-with-pid = yes
+###
+### Set ssl-client-cert-file-prompt to &#39;yes&#39; to cause the client
+### to prompt for a path to a client cert file when the server
+### requests a client cert but no client cert file is found in the
+### expected place (see the &#39;ssl-client-cert-file&#39; option in the
+### &#39;servers&#39; configuration file). Defaults to &#39;no&#39;.
+# ssl-client-cert-file-prompt = no
+###
+### The rest of the [auth] section in this file has been deprecated.
+### Both &#39;store-passwords&#39; and &#39;store-auth-creds&#39; can now be
+### specified in the &#39;servers&#39; file in your config directory
+### and are documented there. Anything specified in this section
+### is overridden by settings specified in the &#39;servers&#39; file.
+# store-passwords = no
+# store-auth-creds = no
+
+### Section for configuring external helper applications.
+[helpers]
+### Set editor-cmd to the command used to invoke your text editor.
+###   This will override the environment variables that Subversion
+###   examines by default to find this information ($EDITOR,
+###   et al).
+# editor-cmd = editor (vi, emacs, notepad, etc.)
+editor-cmd = vim
+### Set diff-cmd to the absolute path of your &#39;diff&#39; program.
+###   This will override the compile-time default, which is to use
+###   Subversion&#39;s internal diff implementation.
+# diff-cmd = diff_program (diff, gdiff, etc.)
+diff-cmd = /usr/local/bin/svndiff.sh
+### Diff-extensions are arguments passed to an external diff
+### program or to Subversion&#39;s internal diff implementation.
+### Set diff-extensions to override the default arguments (&#39;-u&#39;).
+# diff-extensions = -u -p
+### Set diff3-cmd to the absolute path of your &#39;diff3&#39; program.
+###   This will override the compile-time default, which is to use
+###   Subversion&#39;s internal diff3 implementation.
+# diff3-cmd = diff3_program (diff3, gdiff3, etc.)
+### Set diff3-has-program-arg to &#39;yes&#39; if your &#39;diff3&#39; program
+###   accepts the &#39;--diff-program&#39; option.
+# diff3-has-program-arg = [yes | no]
+### Set merge-tool-cmd to the command used to invoke your external
+### merging tool of choice. Subversion will pass 5 arguments to
+### the specified command: base theirs mine merged wcfile
+# merge-tool-cmd = merge_command
+
+### Section for configuring tunnel agents.
+[tunnels]
+### Configure svn protocol tunnel schemes here.  By default, only
+### the &#39;ssh&#39; scheme is defined.  You can define other schemes to
+### be used with &#39;svn+scheme://hostname/path&#39; URLs.  A scheme
+### definition is simply a command, optionally prefixed by an
+### environment variable name which can override the command if it
+### is defined.  The command (or environment variable) may contain
+### arguments, using standard shell quoting for arguments with
+### spaces.  The command will be invoked as:
+###   &lt;command&gt; &lt;hostname&gt; svnserve -t
+### (If the URL includes a username, then the hostname will be
+### passed to the tunnel agent as &lt;user&gt;@&lt;hostname&gt;.)  If the
+### built-in ssh scheme were not predefined, it could be defined
+### as:
+# ssh = $SVN_SSH ssh -q -o ControlMaster=no
+### If you wanted to define a new &#39;rsh&#39; scheme, to be used with
+### &#39;svn+rsh:&#39; URLs, you could do so as follows:
+# rsh = rsh
+### Or, if you wanted to specify a full path and arguments:
+# rsh = /path/to/rsh -l myusername
+### On Windows, if you are specifying a full path to a command,
+### use a forward slash (/) or a paired backslash (\\) as the
+### path separator.  A single backslash will be treated as an
+### escape for the following character.
+
+### Section for configuring miscellaneous Subversion options.
+[miscellany]
+### Set global-ignores to a set of whitespace-delimited globs
+### which Subversion will ignore in its &#39;status&#39; output, and
+### while importing or adding files and directories.
+### &#39;*&#39; matches leading dots, e.g. &#39;*.rej&#39; matches &#39;.foo.rej&#39;.
+# global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo __pycache__
+#   *.rej *~ #*# .#* .*.swp .DS_Store [Tt]humbs.db
+### Set log-encoding to the default encoding for log messages
+# log-encoding = latin1
+### Set use-commit-times to make checkout/update/switch/revert
+### put last-committed timestamps on every file touched.
+# use-commit-times = yes
+### Set no-unlock to prevent &#39;svn commit&#39; from automatically
+### releasing locks on files.
+# no-unlock = yes
+### Set mime-types-file to a MIME type registry file, used to
+### provide hints to Subversion&#39;s MIME type auto-detection
+### algorithm.
+# mime-types-file = /path/to/mime.types
+### Set preserved-conflict-file-exts to a whitespace-delimited
+### list of patterns matching file extensions which should be
+### preserved in generated conflict file names.  By default,
+### conflict files use custom extensions.
+# preserved-conflict-file-exts = doc ppt xls od?
+### Set enable-auto-props to &#39;yes&#39; to enable automatic properties
+### for &#39;svn add&#39; and &#39;svn import&#39;, it defaults to &#39;no&#39;.
+### Automatic properties are defined in the section &#39;auto-props&#39;.
+# enable-auto-props = yes
+### Set interactive-conflicts to &#39;no&#39; to disable interactive
+### conflict resolution prompting.  It defaults to &#39;yes&#39;.
+# interactive-conflicts = no
+### Set memory-cache-size to define the size of the memory cache
+### used by the client when accessing a FSFS repository via
+### ra_local (the file:// scheme). The value represents the number
+### of MB used by the cache.
+# memory-cache-size = 16
+### Set diff-ignore-content-type to &#39;yes&#39; to cause &#39;svn diff&#39; to
+### attempt to show differences of all modified files regardless
+### of their MIME content type.  By default, Subversion will only
+### attempt to show differences for files believed to have human-
+### readable (non-binary) content.  This option is especially
+### useful when Subversion is configured (via the &#39;diff-cmd&#39;
+### option) to employ an external differencing tool which is able
+### to show meaningful differences for binary file formats.  [New
+### in 1.9]
+# diff-ignore-content-type = no
+
+### Section for configuring automatic properties.
+[auto-props]
+### The format of the entries is:
+###   file-name-pattern = propname[=value][;propname[=value]...]
+### The file-name-pattern can contain wildcards (such as &#39;*&#39; and
+### &#39;?&#39;).  All entries which match (case-insensitively) will be
+### applied to the file.  Note that auto-props functionality
+### must be enabled, which is typically done by setting the
+### &#39;enable-auto-props&#39; option.
+# *.c = svn:eol-style=native
+# *.cpp = svn:eol-style=native
+# *.h = svn:keywords=Author Date Id Rev URL;svn:eol-style=native
+# *.dsp = svn:eol-style=CRLF
+# *.dsw = svn:eol-style=CRLF
+# *.sh = svn:eol-style=native;svn:executable
+# *.txt = svn:eol-style=native;svn:keywords=Author Date Id Rev URL;
+# *.png = svn:mime-type=image/png
+# *.jpg = svn:mime-type=image/jpeg
+# Makefile = svn:eol-style=native
+
+### Section for configuring working copies.
+[working-copy]
+### Set to a list of the names of specific clients that should use
+### exclusive SQLite locking of working copies.  This increases the
+### performance of the client but prevents concurrent access by
+### other clients.  Third-party clients may also support this
+### option.
+### Possible values:
+###   svn                (the command line client)
+# exclusive-locking-clients =
+### Set to true to enable exclusive SQLite locking of working
+### copies by all clients using the 1.8 APIs.  Enabling this may
+### cause some clients to fail to work properly. This does not have
+### to be set for exclusive-locking-clients to work.
+# exclusive-locking = false
+### Set the SQLite busy timeout in milliseconds: the maximum time
+### the client waits to get access to the SQLite database before
+### returning an error.  The default is 10000, i.e. 10 seconds.
+### Longer values may be useful when exclusive locking is enabled.
+# busy-timeout = 10000</code></pre></div>
+<p>找到：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text"># store-passwords = no</code></pre></div>
+<p>改为：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">store-passwords = yes</code></pre></div>
+<p>保存，下次SVN操作的时候需要输入一次密码，之后就不用再输密码了。</p>
+<h3>切换SVN账号</h3>
+<p>有时候需要切换SVN账号进行相应的操作，但是默认提示的是上一次操作的账号。碰到这个问题，只要删除<code class="language-text">/home/[username]/.subversion/auth</code>即可。</p>
+<div class="gatsby-highlight" data-language="auth"><pre class="language-auth"><code class="language-auth">rm -rf /home/[username]/.subversion/auth</code></pre></div>
+<p>保存，下次SVN操作的时候就会提示输入用户名。</p>
+<h2>修改配置文件<code class="language-text">servers</code></h2>
+<p>如果上面的方法没有解决每次都要输入密码的问题，可以继续修改<code class="language-text">servers</code>配置文件。</p>
+<p>用vim打开文件：</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">vim /home/<span class="token punctuation">[</span>username<span class="token punctuation">]</span>/.subversion/servers</code></pre></div>
+<p>原文件内容如下：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">### This file specifies server-specific parameters,
+### including HTTP proxy information, HTTP timeout settings,
+### and authentication settings.
+###
+### The currently defined server options are:
+###   http-proxy-host            Proxy host for HTTP connection
+###   http-proxy-port            Port number of proxy host service
+###   http-proxy-username        Username for auth to proxy service
+###   http-proxy-password        Password for auth to proxy service
+###   http-proxy-exceptions      List of sites that do not use proxy
+###   http-timeout               Timeout for HTTP requests in seconds
+###   http-compression           Whether to compress HTTP requests
+###   http-max-connections       Maximum number of parallel server
+###                              connections to use for any given
+###                              HTTP operation.
+###   http-chunked-requests      Whether to use chunked transfer
+###                              encoding for HTTP requests body.
+###   neon-debug-mask            Debug mask for Neon HTTP library
+###   ssl-authority-files        List of files, each of a trusted CA
+###   ssl-trust-default-ca       Trust the system &#39;default&#39; CAs
+###   ssl-client-cert-file       PKCS#12 format client certificate file
+###   ssl-client-cert-password   Client Key password, if needed.
+###   ssl-pkcs11-provider        Name of PKCS#11 provider to use.
+###   http-library               Which library to use for http/https
+###                              connections.
+###   http-bulk-updates          Whether to request bulk update
+###                              responses or to fetch each file
+###                              in an individual request.
+###   store-passwords            Specifies whether passwords used
+###                              to authenticate against a
+###                              Subversion server may be cached
+###                              to disk in any way.
+###   store-plaintext-passwords  Specifies whether passwords may
+###                              be cached on disk unencrypted.
+###   store-ssl-client-cert-pp   Specifies whether passphrase used
+###                              to authenticate against a client
+###                              certificate may be cached to disk
+###                              in any way
+###   store-ssl-client-cert-pp-plaintext
+###                              Specifies whether client cert
+###                              passphrases may be cached on disk
+###                              unencrypted (i.e., as plaintext).
+###   store-auth-creds           Specifies whether any auth info
+###                              (passwords, server certs, etc.)
+###                              may be cached to disk.
+###   username                   Specifies the default username.
+###
+### Set store-passwords to &#39;no&#39; to avoid storing passwords on disk
+### in any way, including in password stores.  It defaults to
+### &#39;yes&#39;, but Subversion will never save your password to disk in
+### plaintext unless explicitly configured to do so.
+### Note that this option only prevents saving of *new* passwords;
+### it doesn&#39;t invalidate existing passwords.  (To do that, remove
+### the cache files by hand as described in the Subversion book.)
+###
+### Set store-plaintext-passwords to &#39;no&#39; to avoid storing
+### passwords in unencrypted form in the auth/ area of your config
+### directory. Set it to &#39;yes&#39; to allow Subversion to store
+### unencrypted passwords in the auth/ area.  The default is
+### &#39;ask&#39;, which means that Subversion will ask you before
+### saving a password to disk in unencrypted form.  Note that
+### this option has no effect if either &#39;store-passwords&#39; or
+### &#39;store-auth-creds&#39; is set to &#39;no&#39;.
+###
+### Set store-ssl-client-cert-pp to &#39;no&#39; to avoid storing ssl
+### client certificate passphrases in the auth/ area of your
+### config directory.  It defaults to &#39;yes&#39;, but Subversion will
+### never save your passphrase to disk in plaintext unless
+### explicitly configured to do so.
+###
+### Note store-ssl-client-cert-pp only prevents the saving of *new*
+### passphrases; it doesn&#39;t invalidate existing passphrases.  To do
+### that, remove the cache files by hand as described in the
+### Subversion book at http://svnbook.red-bean.com/nightly/en/\
+###                    svn.serverconfig.netmodel.html\
+###                    #svn.serverconfig.netmodel.credcache
+###
+### Set store-ssl-client-cert-pp-plaintext to &#39;no&#39; to avoid storing
+### passphrases in unencrypted form in the auth/ area of your
+### config directory.  Set it to &#39;yes&#39; to allow Subversion to
+### store unencrypted passphrases in the auth/ area.  The default
+### is &#39;ask&#39;, which means that Subversion will prompt before
+### saving a passphrase to disk in unencrypted form.  Note that
+### this option has no effect if either &#39;store-auth-creds&#39; or
+### &#39;store-ssl-client-cert-pp&#39; is set to &#39;no&#39;.
+###
+### Set store-auth-creds to &#39;no&#39; to avoid storing any Subversion
+### credentials in the auth/ area of your config directory.
+### Note that this includes SSL server certificates.
+### It defaults to &#39;yes&#39;.  Note that this option only prevents
+### saving of *new* credentials;  it doesn&#39;t invalidate existing
+### caches.  (To do that, remove the cache files by hand.)
+###
+### HTTP timeouts, if given, are specified in seconds.  A timeout
+### of 0, i.e. zero, causes a builtin default to be used.
+###
+### Most users will not need to explicitly set the http-library
+### option, but valid values for the option include:
+###    &#39;serf&#39;: Serf-based module (Subversion 1.5 - present)
+###    &#39;neon&#39;: Neon-based module (Subversion 1.0 - 1.7)
+### Availability of these modules may depend on your specific
+### Subversion distribution.
+###
+### The commented-out examples below are intended only to
+### demonstrate how to use this file; any resemblance to actual
+### servers, living or dead, is entirely coincidental.
+
+### In the &#39;groups&#39; section, the URL of the repository you&#39;re
+### trying to access is matched against the patterns on the right.
+### If a match is found, the server options are taken from the
+### section with the corresponding name on the left.
+
+[groups]
+# group1 = *.collab.net
+# othergroup = repository.blarggitywhoomph.com
+# thirdgroup = *.example.com
+
+### Information for the first group:
+# [group1]
+# http-proxy-host = proxy1.some-domain-name.com
+# http-proxy-port = 80
+# http-proxy-username = blah
+# http-proxy-password = doubleblah
+# http-timeout = 60
+# neon-debug-mask = 130
+# store-plaintext-passwords = no
+# username = harry
+
+### Information for the second group:
+# [othergroup]
+# http-proxy-host = proxy2.some-domain-name.com
+# http-proxy-port = 9000
+# No username and password for the proxy, so use the defaults below.
+
+### You can set default parameters in the &#39;global&#39; section.
+### These parameters apply if no corresponding parameter is set in
+### a specifically matched group as shown above.  Thus, if you go
+### through the same proxy server to reach every site on the
+### Internet, you probably just want to put that server&#39;s
+### information in the &#39;global&#39; section and not bother with
+### &#39;groups&#39; or any other sections.
+###
+### Most people might want to configure password caching
+### parameters here, but you can also configure them per server
+### group (per-group settings override global settings).
+###
+### If you go through a proxy for all but a few sites, you can
+### list those exceptions under &#39;http-proxy-exceptions&#39;.  This only
+### overrides defaults, not explicitly matched server names.
+###
+### &#39;ssl-authority-files&#39; is a semicolon-delimited list of files,
+### each pointing to a PEM-encoded Certificate Authority (CA)
+### SSL certificate.  See details above for overriding security
+### due to SSL.
+[global]
+# http-proxy-exceptions = *.exception.com, www.internal-site.org
+# http-proxy-host = defaultproxy.whatever.com
+# http-proxy-port = 7000
+# http-proxy-username = defaultusername
+# http-proxy-password = defaultpassword
+# http-compression = no
+# No http-timeout, so just use the builtin default.
+# No neon-debug-mask, so neon debugging is disabled.
+# ssl-authority-files = /path/to/CAcert.pem;/path/to/CAcert2.pem
+#
+# Password / passphrase caching parameters:
+# store-passwords = no
+# store-ssl-client-cert-pp = no
+# store-plaintext-passwords = no
+# store-ssl-client-cert-pp-plaintext = no</code></pre></div>
+<p>找到：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text"># store-passwords = no
+# store-plaintext-passwords = no</code></pre></div>
+<p>修改为：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">store-passwords = yes
+store-plaintext-passwords = yes</code></pre></div>
+<p>保存，下次操作的时候就不用输入SVN密码了。</p></div><hr style="margin-bottom:1.75rem"/><div style="display:flex;margin-bottom:4.375rem"><img src="data:image/png;base64,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" alt="Kyle Mathews" style="margin-right:0.875rem;margin-bottom:0;width:3.5rem;height:3.5rem"/><p>Written by <strong>ricosmall</strong>. <br/><a href="https://github.com/ricosmall">Github</a></p></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/2017-09-30-Java后端模板引擎FreeMarker/">← <!-- -->Java后端模板引擎FreeMarker</a></li><li><a rel="next" href="/2017-10-27-nginx反向代理的Express如何拿到真实客户端IP/">nginx反向代理的Express如何拿到真实客户端IP<!-- --> →</a></li></ul></div></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'undefined', 'auto', {});
+      
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"2017-10-18-linux下-svn账号密码保存方法-a83","path":"/2017-10-18-Linux下SVN账号密码保存方法/"};window.dataPath="163/path---2017-10-18-linux下-svn账号密码保存方法-a-83-64b-KbADwwA4wABXITANn6E5HZLA3M";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.b6f197430f783b3e67aa.css","/app-a7abcd9cb971cabfe3fa.js"],"component---node-modules-gatsby-plugin-offline-app-shell-js":["/component---node-modules-gatsby-plugin-offline-app-shell-js-12721a8353a8dafbfffd.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-eeb672c25def62341770.js"],"component---src-pages-404-js":["/component---src-pages-404-js-de9ebe54135a8c877592.js"],"component---src-pages-index-js":["/component---src-pages-index-js-19b34f41f0b35a50bdc1.js"]};/*]]>*/</script><script src="/webpack-runtime-d623612e523c20fc77af.js" async=""></script><script src="/app-a7abcd9cb971cabfe3fa.js" async=""></script><script src="/0-e702958d6fc33e173121.js" async=""></script><script src="/1-3652ad0ebc9391cff709.js" async=""></script><script src="/component---src-templates-blog-post-js-eeb672c25def62341770.js" async=""></script></body></html>

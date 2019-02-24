@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/app.b6f197430f783b3e67aa.css">code[class*=language-],pre[class*=language-]{color:#f8f8f2;background:none;text-shadow:0 1px rgba(0,0,0,.3);font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;border-radius:.3em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#272822}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#f8f8f2}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#f92672}.token.boolean,.token.number{color:#ae81ff}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a6e22e}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#f8f8f2}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#e6db74}.token.keyword{color:#66d9ef}.token.important,.token.regex{color:#fd971f}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><style data-href="/1.76e6c55a11ab238cc939.css">@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-50d279861fb3cbfed809eae6ed8b9ac9.woff2) format("woff2"),url(/static/montserrat-latin-100-5e334eff013f12fbb8ed72c2a253f119.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-8c0705336558194799a8729840d7ed9d.woff2) format("woff2"),url(/static/montserrat-latin-100italic-03e19243272affe738654a157625ec26.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-4343d3d91a9446226e7a8bbb024111ad.woff2) format("woff2"),url(/static/montserrat-latin-200-f2022ecd65a0703ec3edcb7641709a75.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-116c4c4b14ef76b0555da09854512022.woff2) format("woff2"),url(/static/montserrat-latin-200italic-89614a6008fc5c60739012463d0ee7e6.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-d2ad295b60682a6537c358e06ea80c61.woff2) format("woff2"),url(/static/montserrat-latin-300-3a371ee0d175f5c2b15ce1d6b981dc4e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-f6b6bf2431003f8142e800f9df157989.woff2) format("woff2"),url(/static/montserrat-latin-300italic-16521668f5f238098329cdd7d27c391e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-240a84447b78da0920fcb07e378f2c5f.woff2) format("woff2"),url(/static/montserrat-latin-400-b20cc131034316b1c85d0498fb9ed5c5.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-86172bb829de6be08b92512096b6aca6.woff2) format("woff2"),url(/static/montserrat-latin-400italic-9405e78785a55cf0e4ea7669d4616ea9.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-fb8d6b71dbe8d9294be43082936f649e.woff2) format("woff2"),url(/static/montserrat-latin-500-50825d47af7ae47e055018eb689c6c99.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c0a555a4f8e997385a3eebbd4da0b9ee.woff2) format("woff2"),url(/static/montserrat-latin-500italic-635de59c4be86285b1f70068c95b9816.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-d5615136a08cfee70deb4be1ee1651df.woff2) format("woff2"),url(/static/montserrat-latin-600-f300da4fb4fe00e23915f62b2c643681.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-10f29d139edacde92df63374c5672568.woff2) format("woff2"),url(/static/montserrat-latin-600italic-2bc37d86a4ba12ce526c4af904a9946e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7d77e1f03eefc452dab14d7f89080083.woff2) format("woff2"),url(/static/montserrat-latin-700-81826529772e52f0f14a4c73c2f2c7f1.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-1dd2b53f1567a29e0505de9b27c4352c.woff2) format("woff2"),url(/static/montserrat-latin-700italic-c162d257f5e9f9b108a96a604cfb2132.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-d4e7bf86bbd8e5f43ca73fa831218648.woff2) format("woff2"),url(/static/montserrat-latin-800-895aadbff357be35ac8dd107c7975ee7.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-fc0cbe442f7b3733c91e982e825c4daa.woff2) format("woff2"),url(/static/montserrat-latin-800italic-b3362875067300abedb7a8fb97903258.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-c8bdd772c0d1347720ff7e3fb72719f3.woff2) format("woff2"),url(/static/montserrat-latin-900-1b99ef78e627dd9bbd0ca4b5c0789547.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-cb72c1f90f66c124fb897a75bec64c78.woff2) format("woff2"),url(/static/montserrat-latin-900italic-b78bb9f8ecec6c5a924c873f1818095f.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-f015f1e9a46a3b9db4fd64564dacece4.woff2) format("woff2"),url(/static/merriweather-latin-300-92dfe81b725c342d31d962da975c07a6.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-7fd86b32accf2df4403d1d4fa3a81502.woff2) format("woff2"),url(/static/merriweather-latin-300italic-878b76f59d5ba58dd1652dc8d2a0f4f9.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-12dbf4c00ae43698f278b099e4b0ec9e.woff2) format("woff2"),url(/static/merriweather-latin-400-1fffad22b085a877995812dbf1d9ac08.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-1e0d3e8121d88969bfb153c8f174b758.woff2) format("woff2"),url(/static/merriweather-latin-400italic-de18d4c4e8e808a7248a185f866ff094.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-dc8fec81a125fc63856587e6683da73b.woff2) format("woff2"),url(/static/merriweather-latin-700-d7d2ed8e58f303392cc3fc00ba3a9186.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-b7b7e5da4d7be8c12bd5a6c809edc8fc.woff2) format("woff2"),url(/static/merriweather-latin-700italic-6210a5fc1c54ca85a5d82aa85d7a9b5c.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-43f870d543dd89fbeb66d417c0d97276.woff2) format("woff2"),url(/static/merriweather-latin-900-8f3806df74937c7b8b53f24ae1e725d1.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-168c1ab28ed0e4e7d654334def288bc1.woff2) format("woff2"),url(/static/merriweather-latin-900italic-ae7778f01871e35ee142ef207b313b34.woff) format("woff")}</style><meta name="generator" content="Gatsby 2.0.62"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><link rel="shortcut icon" href="/icons/icon-48x48.png"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><title data-react-helmet="true">JavaScript、CSS、HTTP知识相关的面试题 | 进击的前端</title><meta data-react-helmet="true" name="description" content="一上来就是前端技术人员的面试，让我感觉压力好大，有点紧张。 问题： Array有哪些方法？ 如何封装简单模块？ CSS如何实现一份设计稿完美兼容各种移动端？ CSS如何做三列布局？ CSS如何实现元素垂直水平居中？ HTTP请求的头部信息包括哪些东西？ HTTP…"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.9);font-family:'Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:0 1px 0 0 currentColor;color:#007acc;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}a.gatsby-resp-image-link{box-shadow:none;}</style><link as="script" rel="preload" href="/component---src-templates-blog-post-js-eeb672c25def62341770.js"/><link as="script" rel="preload" href="/1-3652ad0ebc9391cff709.js"/><link as="script" rel="preload" href="/0-e702958d6fc33e173121.js"/><link as="script" rel="preload" href="/app-a7abcd9cb971cabfe3fa.js"/><link as="script" rel="preload" href="/webpack-runtime-d623612e523c20fc77af.js"/><link rel="preload" href="/static/d/760/path---2017-03-03-java-script、-css、http知识相关的面试题-c-31-d2a-udTnzNHPMGbMm15ZPdKz8rbp0.json" as="fetch" crossOrigin="use-credentials"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div style="margin-left:auto;margin-right:auto;max-width:42rem;padding:2.625rem 1.3125rem"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:-1.75rem"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/">进击的前端</a></h3><h1>JavaScript、CSS、HTTP知识相关的面试题</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.75rem">March 03, 2017</p><div><p>一上来就是前端技术人员的面试，让我感觉压力好大，有点紧张。</p>
+<!-- more -->
+<p>问题：</p>
+<ul>
+<li>Array有哪些方法？</li>
+<li>如何封装简单模块？</li>
+<li>CSS如何实现一份设计稿完美兼容各种移动端？</li>
+<li>CSS如何做三列布局？</li>
+<li>CSS如何实现元素垂直水平居中？</li>
+<li>HTTP请求的头部信息包括哪些东西？</li>
+<li>HTTP请求的状态码有哪些，分别代表什么意思？</li>
+<li>Node.js有哪些核心插件或模块？</li>
+<li>拿到一份设计稿，如何开始开发工作？</li>
+<li>有没有写过一些可复用的组件？</li>
+<li>从前端的角度考虑安全性，该如何有效预防？</li>
+</ul>
+<p>面试时确实有一部分原因是紧张，有一部分原因是基础确实不够扎实。</p>
+<p>现在就来慢慢研究这些问题。</p>
+<hr>
+<h3>Array有哪些方法？</h3>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="language-text">concat</code></td>
+<td>连接2个或更多数组，并返回结果</td>
+</tr>
+<tr>
+<td><code class="language-text">every</code></td>
+<td>对数组每一项运行给定函数，如果该函数每一项都返回true，则返回true</td>
+</tr>
+<tr>
+<td><code class="language-text">filter</code></td>
+<td>对数组每一项运行给定函数，返回该函数会返回true的项组成的数组</td>
+</tr>
+<tr>
+<td><code class="language-text">forEach</code></td>
+<td>对数组每一项运行给定函数。这个函数没有返回值</td>
+</tr>
+<tr>
+<td><code class="language-text">join</code></td>
+<td>将所有的数组元素连成一个字符串</td>
+</tr>
+<tr>
+<td><code class="language-text">indexOf</code></td>
+<td>返回第一个与给定参数相等的数组元素的索引，没有找到则放回-1</td>
+</tr>
+<tr>
+<td><code class="language-text">lastIndexOf</code></td>
+<td>返回在数组中搜索到的与给定参数相等的元素的索引里的最大值</td>
+</tr>
+<tr>
+<td><code class="language-text">map</code></td>
+<td>对数组的每一项运行给定函数，返回每次函数的调用结果组成的数组</td>
+</tr>
+<tr>
+<td><code class="language-text">reverse</code></td>
+<td>颠倒数组中元素的顺序，原先第一个元素现在变成最后一个，同样原先的最后一个元素变成了现在的第一个元素</td>
+</tr>
+<tr>
+<td><code class="language-text">slice</code></td>
+<td>传入索引值，将数组里对应索引范围内的元素作为新数组返回</td>
+</tr>
+<tr>
+<td><code class="language-text">some</code></td>
+<td>对数组的每一项运行给定函数，如果任一项返回true，则返回true</td>
+</tr>
+<tr>
+<td><code class="language-text">sort</code></td>
+<td>按照字母顺序对数组排序，支持传入指定排序方法的函数作为参数</td>
+</tr>
+<tr>
+<td><code class="language-text">toString</code></td>
+<td>将数组作为字符串返回</td>
+</tr>
+<tr>
+<td><code class="language-text">valueOf</code></td>
+<td>和toString类似，将数组作为字符串返回</td>
+</tr>
+<tr>
+<td><code class="language-text">push</code></td>
+<td>将传入的参数作为数组的最后一项添加到数组中，并返回新数组的长度</td>
+</tr>
+<tr>
+<td><code class="language-text">pop</code></td>
+<td>取出数组的最后一项并作为返回值</td>
+</tr>
+<tr>
+<td><code class="language-text">shift</code></td>
+<td>取出数组的第一项并作为返回值</td>
+</tr>
+<tr>
+<td><code class="language-text">unshift</code></td>
+<td>将传入的参数作为数组的第一项添加到数组中，并返回新数组的长度</td>
+</tr>
+</tbody>
+</table>
+<p>这是我能想到和找到的所有方法了，如果看官发现更多，请提醒我，谢谢！</p>
+<h3>如何封装简单模块？</h3>
+<p>我采用的是宽放大模式，就是一个立即执行函数表达式：</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>window<span class="token punctuation">,</span> module<span class="token punctuation">,</span> undefined<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    module<span class="token punctuation">.</span><span class="token function-variable function">sayHello</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hello'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token operator">...</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>window<span class="token punctuation">,</span> window<span class="token punctuation">.</span>module <span class="token operator">||</span> <span class="token punctuation">(</span>window<span class="token punctuation">.</span>module <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<h3>CSS如何实现一份设计稿完美兼容各种移动端？</h3>
+<p>采用rem方式，并且采用js动态识别屏幕的宽度动态生成viewport的meta标签。</p>
+<h3>CSS如何做三列布局？</h3>
+<h3>CSS如何实现元素水平垂直居中？</h3>
+<ul>
+<li>方法一：</li>
+</ul>
+<p>HTML部分如下：</p>
+<div class="gatsby-highlight" data-language="html"><pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrapper<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Content here<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre></div>
+<p>CSS部分如下：</p>
+<div class="gatsby-highlight" data-language="css"><pre class="language-css"><code class="language-css"><span class="token selector">.wrapper</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> -120px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.content</span> <span class="token punctuation">{</span>
+    <span class="token property">clear</span><span class="token punctuation">:</span> both<span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 240px<span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<ul>
+<li>方法二：</li>
+</ul>
+<h3>HTTP请求的头部信息包括哪些东西？</h3>
+<p>最基本的信息如下表：</p>
+<ul>
+<li>请求头部信息：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>描述</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="language-text">Host</code></td>
+<td>服务器域名</td>
+<td><code class="language-text">Host: www.baidu.com</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Accept</code></td>
+<td>可接受的媒体类型</td>
+<td><code class="language-text">Accept: * / *</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Accept-Encoding</code></td>
+<td>可接受的编码类型</td>
+<td><code class="language-text">Accept-Encoding: gzip, deflate, sdch</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Accept-Language</code></td>
+<td>可接受的语言</td>
+<td><code class="language-text">Accept-Language: en-US, en; q=0.8</code></td>
+</tr>
+<tr>
+<td><code class="language-text">User-Agent</code></td>
+<td>用户代理</td>
+<td><code class="language-text">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Content-type</code></td>
+<td>发送内容类型</td>
+<td><code class="language-text">Content-type: text/plain</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Content-length</code></td>
+<td>发送内容长度</td>
+<td><code class="language-text">Content-length: 327</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Connection</code></td>
+<td>客户端连接的类型</td>
+<td><code class="language-text">Connection: keep-alive</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Referer</code></td>
+<td>当前文档的URL</td>
+<td><code class="language-text">Referer: http://www.baidu.com/12345</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>响应头部信息：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>描述</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="language-text">Access-Control-Allow-Origin</code></td>
+<td>可跨域访问源</td>
+<td><code class="language-text">Access-Control-Allow-Origin: *</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Cache-Control</code></td>
+<td>可缓存性</td>
+<td><code class="language-text">Cache-Control: no-cache</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Content-length</code></td>
+<td>响应内容长度</td>
+<td><code class="language-text">Content-length: 35</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Content-type</code></td>
+<td>响应内容类型</td>
+<td><code class="language-text">Content-type: image/gif</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Date</code></td>
+<td>响应时间</td>
+<td><code class="language-text">Date: Mon, 06 Mar 2017 15:34:16 GMT</code></td>
+</tr>
+<tr>
+<td><code class="language-text">Status</code></td>
+<td>响应状态码</td>
+<td><code class="language-text">Status: 200</code></td>
+</tr>
+</tbody>
+</table>
+<h3>HTTP请求的状态码有哪些？分别代表什么意思？</h3>
+<p>状态码分类：</p>
+<table>
+<thead>
+<tr>
+<th>整体范围</th>
+<th>已定义范围</th>
+<th>分类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 ～ 199</td>
+<td>100 ～ 101</td>
+<td>信息提示</td>
+</tr>
+<tr>
+<td>200 ～ 299</td>
+<td>200 ～ 206</td>
+<td>成功提示</td>
+</tr>
+<tr>
+<td>300 ～ 399</td>
+<td>300 ～ 307</td>
+<td>重定向</td>
+</tr>
+<tr>
+<td>400 ～ 499</td>
+<td>400 ～ 417</td>
+<td>客户端错误</td>
+</tr>
+<tr>
+<td>500 ～ 599</td>
+<td>500 ～ 505</td>
+<td>服务器错误</td>
+</tr>
+</tbody>
+</table>
+<p>状态码解释：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="language-text">100</code></td>
+<td>Continue（继续） 初始的请求已经接受，客户应当继续发送请求的其余部分。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">101</code></td>
+<td>Switching Protocols（切换协议） 请求者已要求服务器切换协议，服务器已确认并准备进行切换。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">200</code></td>
+<td>OK（成功） 一切正常，对GET和POST请求的应答文档跟在后面。</td>
+</tr>
+<tr>
+<td><code class="language-text">201</code></td>
+<td>Created（已创建）服务器已经创建了文档，Location头给出了它的URL。</td>
+</tr>
+<tr>
+<td><code class="language-text">202</code></td>
+<td>Accepted（已接受）服务器已接受了请求，但尚未对其进行处理。</td>
+</tr>
+<tr>
+<td><code class="language-text">203</code></td>
+<td>Non-Authoritative Information（非授权信息）文档已经正常地返回，但一些应答头可能不正确，可能来自另一来源 。（HTTP 1.1新）。</td>
+</tr>
+<tr>
+<td><code class="language-text">204</code></td>
+<td>No Content（无内容）未返回任何内容，浏览器应该继续显示原来的文档。</td>
+</tr>
+<tr>
+<td><code class="language-text">205</code></td>
+<td>Reset Content（重置内容）没有新的内容，但浏览器应该重置它所显示的内容。用来强制浏览器清除表单输入内容（HTTP 1.1新）。</td>
+</tr>
+<tr>
+<td><code class="language-text">206</code></td>
+<td>Partial Content（部分内容）服务器成功处理了部分 GET 请求。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">300</code></td>
+<td>Multiple Choices（多种选择）客户请求的文档可以在多个位置找到，这些位置已经在返回的文档内列出。如果服务器要提出优先选择，则应该在Location应答头指明。</td>
+</tr>
+<tr>
+<td><code class="language-text">301</code></td>
+<td>Moved Permanently（永久移动）请求的网页已被永久移动到新位置。服务器返回此响应（作为对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。</td>
+</tr>
+<tr>
+<td><code class="language-text">302</code></td>
+<td>Found（临时移动）类似于301，但新的URL应该被视为临时性的替代，而不是永久性的。注意，在HTTP1.0中对应的状态信息是“Moved Temporatily”，出现该状态代码时，浏览器能够自动访问新的URL，因此它是一个很有用的状态代码。注意这个状态代码有时候可以和301替换使用。例如，如果浏览器错误地请求<a href="http://host/~user%EF%BC%88%E7%BC%BA%E5%B0%91%E4%BA%86%E5%90%8E%E9%9D%A2%E7%9A%84%E6%96%9C%E6%9D%A0%EF%BC%89%EF%BC%8C%E6%9C%89%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%94%E5%9B%9E301%EF%BC%8C%E6%9C%89%E7%9A%84%E5%88%99%E8%BF%94%E5%9B%9E302%E3%80%82%E4%B8%A5%E6%A0%BC%E5%9C%B0%E8%AF%B4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AA%E8%83%BD%E5%81%87%E5%AE%9A%E5%8F%AA%E6%9C%89%E5%BD%93%E5%8E%9F%E6%9D%A5%E7%9A%84%E8%AF%B7%E6%B1%82%E6%98%AFGET%E6%97%B6%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E9%87%8D%E5%AE%9A%E5%90%91%E3%80%82%E8%AF%B7%E5%8F%82%E8%A7%81307%E3%80%82">http://host/~user（缺少了后面的斜杠），有的服务器返回301，有的则返回302。严格地说，我们只能假定只有当原来的请求是GET时浏览器才会自动重定向。请参见307。</a></td>
+</tr>
+<tr>
+<td><code class="language-text">303</code></td>
+<td>See Other（查看其他位置）类似于301/302，不同之处在于，如果原来的请求是POST，Location头指定的重定向目标文档应该通过GET提取（HTTP 1.1新）。</td>
+</tr>
+<tr>
+<td><code class="language-text">304</code></td>
+<td>Not Modified（未修改）自从上次请求后，请求的网页未被修改过。原来缓冲的文档还可以继续使用，不会返回网页内容。</td>
+</tr>
+<tr>
+<td><code class="language-text">305</code></td>
+<td>Use Proxy（使用代理）只能使用代理访问请求的网页。如果服务器返回此响应，那么，服务器还会指明请求者应当使用的代理。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">307</code></td>
+<td>Temporary Redirect（临时重定向）和 302（Found）相同。许多浏览器会错误地响应302应答进行重定向，即使原来的请求是POST，即使它实际上只能在POST请求的应答是303时才能重定向。由于这个原因，HTTP 1.1新增了307，以便更加清除地区分几个状态代码：当出现303应答时，浏览器可以跟随重定向的GET和POST请求；如果是307应答，则浏览器只能跟随对GET请求的重定向。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">400</code></td>
+<td>Bad Request（错误请求）请求出现语法错误。</td>
+</tr>
+<tr>
+<td><code class="language-text">401</code></td>
+<td>Unauthorized（未授权）客户试图未经授权访问受密码保护的页面。应答中会包含一个WWW-Authenticate头，浏览器据此显示用户名字/密码对话框，然后在填写合适的Authorization头后再次发出请求。</td>
+</tr>
+<tr>
+<td><code class="language-text">403</code></td>
+<td>Forbidden（已禁止） 资源不可用。服务器理解客户的请求，但拒绝处理它。通常由于服务器上文件或目录的权限设置导致。</td>
+</tr>
+<tr>
+<td><code class="language-text">404</code></td>
+<td>Not Found（未找到）无法找到指定位置的资源。</td>
+</tr>
+<tr>
+<td><code class="language-text">405</code></td>
+<td>Method Not Allowed（方法禁用）请求方法（GET、POST、HEAD、DELETE、PUT、TRACE等）禁用。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">406</code></td>
+<td>Not Acceptable（不接受）指定的资源已经找到，但它的MIME类型和客户在Accpet头中所指定的不兼容（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">407</code></td>
+<td>Proxy Authentication Required（需要代理授权）类似于401，表示客户必须先经过代理服务器的授权。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">408</code></td>
+<td>Request Time-out（请求超时）服务器等候请求时超时。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">409</code></td>
+<td>Conflict（冲突）通常和PUT请求有关。由于请求和资源的当前状态相冲突，因此请求不能成功。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">410</code></td>
+<td>Gone（已删除）如果请求的资源已被永久删除，那么，服务器会返回此响应。该代码与 404（未找到）代码类似，但在资源以前有但现在已经不复存在的情况下，有时会替代 404 代码出现。如果资源已被永久删除，那么，您应当使用 301 代码指定该资源的新位置。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">411</code></td>
+<td>Length Required（需要有效长度）不会接受包含无效内容长度标头字段的请求。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">412</code></td>
+<td>Precondition Failed（未满足前提条件）服务器未满足请求者在请求中设置的其中一个前提条件。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">413</code></td>
+<td>Request Entity Too Large（请求实体过大）请求实体过大，已超出服务器的处理能力。如果服务器认为自己能够稍后再处理该请求，则应该提供一个Retry-After头。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">414</code></td>
+<td>Request-URI Too Large（请求的 URI 过长）请求的 URI（通常为网址）过长，服务器无法进行处理。</td>
+</tr>
+<tr>
+<td><code class="language-text">415</code></td>
+<td>Unsupported Media Type（不支持的媒体类型）请求的格式不受请求页面的支持。</td>
+</tr>
+<tr>
+<td><code class="language-text">416</code></td>
+<td>Requested range not satisfiable（请求范围不符合要求）服务器不能满足客户在请求中指定的Range头。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">417</code></td>
+<td>Expectation Failed（未满足期望值）服务器未满足”期望”请求标头字段的要求。</td>
+</tr>
+<tr>
+<td><code class="language-text">500</code></td>
+<td>Internal Server Error（服务器内部错误）服务器遇到错误，无法完成请求。</td>
+</tr>
+<tr>
+<td><code class="language-text">501</code></td>
+<td>Not Implemented（尚未实施） 服务器不具备完成请求的功能。例如，当服务器无法识别请求方法时，服务器可能会返回此代码。</td>
+</tr>
+<tr>
+<td><code class="language-text">502</code></td>
+<td>Bad Gateway（错误网关）服务器作为网关或者代理时，为了完成请求访问下一个服务器，但该服务器返回了非法的应答。</td>
+</tr>
+<tr>
+<td><code class="language-text">503</code></td>
+<td>Service Unavailable（服务不可用）服务器由于维护或者负载过重未能应答。通常，这只是一种暂时的状态。</td>
+</tr>
+<tr>
+<td><code class="language-text">504</code></td>
+<td>Gateway Time-out（网关超时） 由作为代理或网关的服务器使用，表示不能及时地从远程服务器获得应答。（HTTP 1.1新）</td>
+</tr>
+<tr>
+<td><code class="language-text">505</code></td>
+<td>HTTP Version not supported（HTTP 版本不受支持）不支持请求中所使用的 HTTP 协议版本。</td>
+</tr>
+</tbody>
+</table>
+<h3>Node.js有哪些核心插件或模块？</h3>
+<p>Node.js核心模块如下表：</p>
+<table>
+<thead>
+<tr>
+<th>模块名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http</td>
+<td>提供http服务器功能</td>
+</tr>
+<tr>
+<td>url</td>
+<td>用于解析url</td>
+</tr>
+<tr>
+<td>fs</td>
+<td>文件IO系统</td>
+</tr>
+<tr>
+<td>querystring</td>
+<td>解析url的查询字符串</td>
+</tr>
+<tr>
+<td>util</td>
+<td>提供实用工具</td>
+</tr>
+<tr>
+<td>path</td>
+<td>处理文件路径</td>
+</tr>
+<tr>
+<td>crypto</td>
+<td>提供加密解密功能</td>
+</tr>
+<tr>
+<td>child_process</td>
+<td>新建子进程</td>
+</tr>
+</tbody>
+</table>
+<p>为了提高运行速度，上面这些核心模块在安装时都会被编译成二进制文件。</p>
+<h3>拿到一份设计稿，如何开始开发工作？</h3>
+<p>先分析布局，划分框架，然后规划结构，编写代码。</p>
+<p>如果是协同开发，那就要建立代码规范：</p>
+<ul>
+<li>合理地使用标签</li>
+<li>准确使用CSS</li>
+<li>良好的注释</li>
+<li>清晰的代码结构</li>
+</ul>
+<p>除此之外，为了提高效率，降低出错率，应该实现前端工程化。</p>
+<h3>有没有写过一些可复用的组件？</h3>
+<h3>从前端的角度考虑安全性，该如何有效预防？</h3></div><hr style="margin-bottom:1.75rem"/><div style="display:flex;margin-bottom:4.375rem"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAI20lEQVR4Xu2cQVZjRwxF7XPSTLImJsk+mn1knqwjzT4yYkvJBAbkOMQHmrb9q1Qq/XrS7al/qaT7dDE0xxx/+f3v1wP/IACBiwSOCMJmQOA6AQRhOyBwgwCCsB4QQBB2AAI2AryD2LhxqggBBCkSNGPaCCCIjRunihBAkCJBM6aNAILYuHGqCAEEKRI0Y9oIIIiNG6eKEECQIkEzpo0Agti4caoIAQQpEjRj2gggiI0bp4oQQJAiQTOmjQCC2LhxqggBBCkSNGPaCCCIjRunihBAkCJBM6aNAILYuHGqCAEEKRI0Y9oIIIiNG6eKEECQIkEzpo0Agti4caoIAQQpEjRj2gggiI0bp4oQQJAiQTOmjQCC2LhxqggBBCkSNGPaCCCIjRunihBAkCJBM6aNAILYuHGqCAEEKRI0Y9oIIIiNG6eKEECQIkEzpo0Agti4caoIAQQpEjRj2gggiI0bp4oQQJAiQTOmjQCC2LhxqggBBCkSNGPaCCCIjRunihBAkCJBM6aNAILYuHGqCAEEKRI0Y9oIIIiNG6eKEECQIkEzpo0Agti4caoIAQQpEjRj2gggiI0bp4oQQJAiQTOmjQCC2LhxqggBBCkSNGPaCCCIjRunihBAkCJBM6aNAILYuHGqCAEEKRI0Y9oIJBLkaCNw9dSrc73Vy8HvUkJpBPl6/8VtAx+fng+Hg/fCuLU3pZAvv5cpPe5RNIUgf/32sxu7X//4x62WSiFvfud6GVjKC+IdrspSe/Xpze9zPXVJpAXxDtdr6VTqePO7Vk9ZEllBvMNVWWqvPr35bdVTlURSkK0wepZINbieGT8/682vtZ4iazlBWsNoWSDFwFrmuvWMN7/eemrMpQTpDePWoqgFNSrG6bw3P2s9JfYygljDuLRYSgF5iLGSHOd5VDKQEAQ5xjTx5udVT0GS5QXxCuO0YgqBjKnw4+kZ/GbU9J7bq97SglQKwivQj3Vm8ptZewYLa81lBakSgDW4rXMR/CLu2Jpz9utLClIB/MxgI/lF3jWT2bXaywmSHfjskPfgt8edszme6y8lSGbQEYHuyW/Pu2eyXUaQrIBnhhf1A3nrDBkzXEKQjGBbl8rjuZX4rdSLB9vdBckG1COUnhor8luxpx6mH5/dVZBMIK0BjJxbmd/KvfUw302QLAB7YHs+q8BPocetTHYRJAO4LbAzX1fip9TrpczCBVEHNnPxW2or8lPseZffgyiDalne2c8o81PtPewdRBXQ7KVvrZ+Bn+IMIYIogmld3IjnMvFTm2W6IGpAIha+546M/JRmmiqIEoiepY16NjM/ldmmCaICIGrZe++pwE9hximCKAzeu7CRz1fit/qszoIcXw+H16PX0HyGfExLFX5e+/L49PL659Pz6e/yu/1pfndBvt7/dHh8ehmWRCXcsRX+/rTXopyqqvHzmF1GkIf7u+MpIOvQauF6SGJldeluVX6jDKQEOX8V6x1aNdwRSXoZ3bpLnd8ICzlBeiVRD9ciychCfL4vCz8rE0lBWiXJEm6PJNZFyPRt1TVeFjaygmxJghw9Wv34bFZ+vZJIC3JNkqzh3lr53uAz/8yx9aWhh5W8IJ8lQY6t9bj9ehV+rZKkEETx/+jH1vj9dGvQLfdVkePMooVdGkEqStIScIsYFdm1SpJKkEpBI0er+pefO/Pb+uVzOkEqSIIcPnKcq9ySJKUgmSVBDl85tiRJK0hGSZBjjhy3JEktSCZJkGOuHNckSS9IBkmQI0aOS5KUEERZEuSIleOzJGUEUZQEOfaR46MkD/d3Gp8oPH1gagzX22mV3xYjx1jaXvxO+/LfZ77X/cjtGyivgRUkqTTrmAa3fwnoUXvGF1Tnz6S/j1lhcSrM6LG412oo8JsmSPZ3EoVwZy73aG0VflMFySqJSrijSzzrvBK/6YJkk0Qp3FkLPlJXjV+IIFkkUQt3ZJFnnFXkFyaIuiSK4c5YcmtNVX6hgqhKohqudZm9zynzCxdETRLlcL0X3VJPnd8ugqhIoh6uZaE9z2Tgt5sgq0uSIVzPZe+tlYXfroKsKkmWcHuX2uv5TPx2F2Q1STKF67XwPXWy8VtCkFUkyRZuz2J7PJuR3zKC7C1JxnA9lr61RlZ+SwmylyRZw21d7tHnMvNbTpBoSTKHO7r4Leez81tSkChJsofbsuAjz1Tgt6wgsyWpEO7I8m+drcJvaUFmSVIl3K0lt75eid/ygnhKsvXHj3sXZsZnoHt7iH6+khwnthKCeEiCHOMqVZNDSpARSZADOawEZN5BzgP2fhVDDutqvJ/rZX7rRrVvS+UE6XknQQ7kGCUgKUiLJMgxuhq1/gDgNVqygtySBDmQY5zAWwVpQS5Jghzjq1H5Z47P9OQF+SgJciDHOIHvK6QQ5DzSw/2dG59vT89utTQKHQ8P91/cWs3CL5Egr27h/v/dp3O91cvB71JCiQRZfQHpT5EAgiimRs9hBBAkDDUXKRJAEMXU6DmMAIKEoeYiRQIIopgaPYcRQJAw1FykSABBFFOj5zACCBKGmosUCSCIYmr0HEYAQcJQc5EiAQRRTI2ewwggSBhqLlIkgCCKqdFzGAEECUPNRYoEEEQxNXoOI4AgYai5SJEAgiimRs9hBBAkDDUXKRJAEMXU6DmMAIKEoeYiRQIIopgaPYcRQJAw1FykSABBFFOj5zACCBKGmosUCSCIYmr0HEYAQcJQc5EiAQRRTI2ewwggSBhqLlIkgCCKqdFzGAEECUPNRYoEEEQxNXoOI4AgYai5SJEAgiimRs9hBBAkDDUXKRJAEMXU6DmMAIKEoeYiRQIIopgaPYcRQJAw1FykSABBFFOj5zACCBKGmosUCSCIYmr0HEYAQcJQc5EiAQRRTI2ewwggSBhqLlIkgCCKqdFzGAEECUPNRYoEEEQxNXoOI4AgYai5SJEAgiimRs9hBBAkDDUXKRJAEMXU6DmMAIKEoeYiRQIIopgaPYcRQJAw1FykSABBFFOj5zACCBKGmosUCSCIYmr0HEYAQcJQc5EigX8BgDmAZPyqicUAAAAASUVORK5CYII=" alt="Kyle Mathews" style="margin-right:0.875rem;margin-bottom:0;width:3.5rem;height:3.5rem"/><p>Written by <strong>ricosmall</strong>. <br/><a href="https://github.com/ricosmall">Github</a></p></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/2017-03-03-一次关于前端领域知识的面试/">← <!-- -->一次关于前端领域知识的面试</a></li><li><a rel="next" href="/2017-03-16-前端开发聚合、分享、期刊订阅类网站/">前端开发聚合、分享、期刊订阅类网站<!-- --> →</a></li></ul></div></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'undefined', 'auto', {});
+      
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"2017-03-03-java-script、-css、http知识相关的面试题-c31","path":"/2017-03-03-JavaScript、CSS、HTTP知识相关的面试题/"};window.dataPath="760/path---2017-03-03-java-script、-css、http知识相关的面试题-c-31-d2a-udTnzNHPMGbMm15ZPdKz8rbp0";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.b6f197430f783b3e67aa.css","/app-a7abcd9cb971cabfe3fa.js"],"component---node-modules-gatsby-plugin-offline-app-shell-js":["/component---node-modules-gatsby-plugin-offline-app-shell-js-12721a8353a8dafbfffd.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-eeb672c25def62341770.js"],"component---src-pages-404-js":["/component---src-pages-404-js-de9ebe54135a8c877592.js"],"component---src-pages-index-js":["/component---src-pages-index-js-19b34f41f0b35a50bdc1.js"]};/*]]>*/</script><script src="/webpack-runtime-d623612e523c20fc77af.js" async=""></script><script src="/app-a7abcd9cb971cabfe3fa.js" async=""></script><script src="/0-e702958d6fc33e173121.js" async=""></script><script src="/1-3652ad0ebc9391cff709.js" async=""></script><script src="/component---src-templates-blog-post-js-eeb672c25def62341770.js" async=""></script></body></html>
